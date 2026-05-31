@@ -51,3 +51,13 @@ SwingForm AI 是一个把人工智能、golf swing 分析和未来 basketball sh
 ```bash
 python scripts/register_local_session.py /path/to/golf.mp4 --sport golf
 ```
+
+## 第一个本地示例
+
+第一个私人 golf 视频已经被分析成公开安全的派生示例。原始视频只留在本地，README 只展示姿态骨架、时间序列和指标摘要。
+
+![Golf swing metric timeline](docs/assets/golf-swing-demo/metric_timeline.png)
+
+![Golf swing skeleton keyposes](docs/assets/golf-swing-demo/skeleton_keyposes.png)
+
+完整派生报告见 [docs/examples/golf_swing_demo_2026-05-31.md](docs/examples/golf_swing_demo_2026-05-31.md)。

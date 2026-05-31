@@ -11,6 +11,7 @@ venv/
 # Local data and models
 data/local/
 models/local/
+models/*.task
 *.mp4
 *.mov
 *.m4v
@@ -28,4 +29,3 @@ reports/
 
 # macOS
 .DS_Store
-

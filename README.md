@@ -23,6 +23,7 @@ The project starts with golf because a golf swing has well-defined events and re
 | `docs/personal_data_program.md` | Long-term plan for private practice data, labels, metrics, and reports |
 | `src/swingform_ai/` | Lightweight Python package for pose schemas, geometry, and sport profiles |
 | `scripts/register_local_session.py` | Local-only session manifest tool for personal practice videos |
+| `scripts/analyze_local_golf_video.py` | Local golf video analyzer with public-safe demo export |
 | `examples/` | Small synthetic examples that are safe to commit |
 | `tests/` | Unit tests for geometry and sport metric helpers |
 | `data/` | Data policy and local-only data folders |
@@ -86,6 +87,26 @@ Personal practice videos are local-only by default. Commit only code, documentat
 
 See [docs/data_governance.md](docs/data_governance.md) for the full boundary.
 See [docs/personal_data_program.md](docs/personal_data_program.md) for the long-term personal data plan.
+
+## First Local Demo
+
+The first private golf sample was analyzed as a public-safe derived example. The raw video stays local, while pose-derived metrics and skeleton views are committed for transparency.
+
+![Golf swing metric timeline](docs/assets/golf-swing-demo/metric_timeline.png)
+
+![Golf swing skeleton keyposes](docs/assets/golf-swing-demo/skeleton_keyposes.png)
+
+| Signal | Value |
+| --- | ---: |
+| Video length | 14.44s |
+| Resolution | 320x568 |
+| Pose coverage | 361 / 361 frames |
+| Detected swing cycles | 2 |
+| Mean landmark visibility | 0.805 |
+
+The checked clip contains one slower practice motion and one fuller swing. Event labels are human-checked in this first example, and `impact` is an impact or low-point proxy until club and ball tracking are added.
+
+See [docs/examples/golf_swing_demo_2026-05-31.md](docs/examples/golf_swing_demo_2026-05-31.md) and [examples/golf_swing_demo_summary.json](examples/golf_swing_demo_summary.json) for the full derived report.
 
 ## Roadmap
 

@@ -1,0 +1,22 @@
+{
+  "source": "human-checked labels from private local golf video",
+  "privacy_note": "Raw video is not committed. These labels are used to make the public derived example reproducible.",
+  "swings": [
+    {
+      "swing": 1,
+      "label": "practice-motion",
+      "address_time_s": 2.0,
+      "top_time_s": 3.2,
+      "impact_time_s": 4.2,
+      "finish_time_s": 4.8
+    },
+    {
+      "swing": 2,
+      "label": "full-swing",
+      "address_time_s": 5.6,
+      "top_time_s": 6.8,
+      "impact_time_s": 7.4,
+      "finish_time_s": 8.6
+    }
+  ]
+}
