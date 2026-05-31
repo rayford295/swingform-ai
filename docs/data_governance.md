@@ -18,7 +18,8 @@ Do not commit:
 3. Downloaded model weights when they can be fetched from their upstream source.
 4. Virtual environments, caches, generated package metadata, or machine-specific files.
 5. Credentials, API keys, cookies, or local database files.
-6. Medical, injury, or body-health inference.
+6. Private chats, screenshots, meeting notes, or market conversations.
+7. Medical, injury, or body-health inference.
 
 ## Local Folder Convention
 

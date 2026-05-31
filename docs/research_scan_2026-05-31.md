@@ -24,21 +24,19 @@ GolfDB is the key open baseline. It frames golf swing sequencing as detection of
 
 CaddieSet is the most relevant recent signal for where the field is moving. It combines joint information with ball information from a single shot, segments swings into eight phases, and defines 15 expert-informed swing metrics. Source: https://openaccess.thecvf.com/content/CVPR2025W/CVSPORTS/papers/Jung_CaddieSet_A_Golf_Swing_Dataset_with_Human_Joint_Features_and_CVPRW_2025_paper.pdf.
 
-Commercial golf tools suggest users want three things:
+Public-facing golf products suggest users want three things:
 
 1. Automatic swing recording and phase analysis.
 2. Clear issue labels and drill suggestions.
 3. Swing comparison across sessions.
 
-GolfFix describes AI swing analysis reports with posture issues, causes, correction solutions, and focus drills. Source: https://notice.golffix.io/en/guide/analysis.
-
-Sportsbox AI markets single-phone-video 3D swing visualization and biomechanical measurements. Source: https://sportsbox.ai/.
+The useful public lesson is simple: people respond to visible swing moments, clean labels, and reports that feel motivating. SwingForm AI should learn from that product shape without copying any private conversation or proprietary workflow.
 
 ## Basketball Research Signals
 
 BASKET shows that basketball skill estimation is now a serious large-scale video understanding problem. The dataset covers more than 4,400 hours of video, more than 32,000 basketball players, and 20 fine-grained skills including shooting. Source: https://openaccess.thecvf.com/content/CVPR2025/papers/Pan_BASKET_A_Large-Scale_Video_Dataset_for_Fine-Grained_Skill_Estimation_CVPR_2025_paper.pdf.
 
-Commercial basketball tools focus on shot form analysis, joint angles, release point, shot arc, progress tracking, and personalized drill recommendations. ShotIQ, for example, presents a MediaPipe-based shooting-analysis workflow with 12+ biomechanical measurements. Source: https://shotiqai.com/.
+Public-facing basketball tools focus on shot form, release point, shot arc, progress tracking, and drill recommendations. SwingForm AI should keep basketball as a visible next profile while letting the golf demo mature first.
 
 This suggests a practical basketball extension:
 
@@ -46,15 +44,15 @@ This suggests a practical basketball extension:
 2. Add phase-specific metrics around release and follow-through.
 3. Add ball tracking only after the human-pose pipeline is stable.
 
-## Recommended First Product Requirement
+## Recommended First Open-Source Requirement
 
-Build a reproducible research prototype named SwingForm AI:
+Build a reproducible open-source prototype named SwingForm AI:
 
 1. Single-person video input.
 2. Pose extraction with MediaPipe first.
 3. Golf swing phase scaffold based on GolfDB-style events.
 4. Interpretable metrics from landmarks.
-5. Local-only personal video policy.
+5. Cleared public examples plus local draft sessions.
 6. A small report generator for practice sessions.
 7. Clean sport profile abstraction for basketball.
 
@@ -64,7 +62,7 @@ Do not build a full mobile app first. It would hide the research logic behind UI
 
 Do not promise launch-monitor metrics such as true club speed, spin rate, or carry distance from one RGB video without validation data.
 
-Do not publish personal swing videos in the repo. Use synthetic samples or public datasets with clear licenses.
+Do not publish unreviewed captures. Cleared open examples are welcome.
 
 Do not make AI feedback sound like medical, injury, or certified coaching advice.
 

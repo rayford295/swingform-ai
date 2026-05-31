@@ -115,19 +115,21 @@ Current limits are explicit: it does not yet measure club-head speed, ball speed
 4. Sport profiles stay separate: golf and basketball share the pose core but keep their own phases and metrics.
 5. Claims stay calibrated: single-camera pose is useful, but it is not a launch monitor or a certified coach.
 
+Read the project taste and long-term direction in [docs/north_star.md](docs/north_star.md).
+
 ## Roadmap
 
 Near-term:
 
-1. Improve club and ball tracking for golf.
-2. Add cleaner event detection from labeled examples.
-3. Build a richer report page with side-by-side swings.
+1. Improve the visual report so the demo feels more cinematic.
+2. Add club and ball tracking for golf.
+3. Add cleaner event detection from labeled examples.
 4. Add the basketball shooting profile.
 
 Long-term:
 
-1. Compare new sessions against a personal best library.
-2. Add optional multi-view or 3D reconstruction.
+1. Build pseudo-3D motion review and motion trails.
+2. Compare new sessions against a personal best library.
 3. Build a lightweight local web app for practice review.
 4. Grow a clean open dataset of cleared sports practice examples.
 
@@ -139,5 +141,6 @@ Contributions should improve usefulness, beauty, reproducibility, or sport cover
 
 - [中文说明](./README.zh-CN.md)
 - [Technology and product scan](docs/research_scan_2026-05-31.md)
+- [North Star](docs/north_star.md)
 - [Open-source data boundary](docs/data_governance.md)
 - [Personal data program](docs/personal_data_program.md)

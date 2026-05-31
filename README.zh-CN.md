@@ -75,9 +75,11 @@ python scripts/analyze_local_golf_video.py \
 4. 运动 profile 要分开：golf 和 basketball 共享 pose core，但保留各自阶段和指标。
 5. 结论要克制：单摄像头姿态估计有价值，但不是 launch monitor，也不是职业教练替代品。
 
+项目气质和长期方向见 [docs/north_star.md](docs/north_star.md)。
+
 ## 下一步
 
-1. 加 golf club 和 ball tracking。
-2. 用标注样例改进 event detection。
-3. 做更漂亮的 side-by-side swing report。
+1. 先把视觉报告做得更酷、更像可以分享的 practice journal。
+2. 加 golf club 和 ball tracking。
+3. 用标注样例改进 event detection。
 4. 加 basketball shooting profile。

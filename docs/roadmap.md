@@ -14,7 +14,7 @@ Status: complete for the first scaffold.
 
 Goal: convert one local golf swing video into pose JSON.
 
-1. Register local personal videos with ignored session manifests.
+1. Register local videos with session manifests.
 2. Add a MediaPipe pose backend.
 3. Save per-frame landmarks and confidence values.
 4. Export annotated frame previews.
@@ -49,9 +49,18 @@ Goal: reuse the core for basketball shooting form.
 
 ## Milestone 5: Product Prototype
 
-Goal: make the workflow easier to use without hiding the research logic.
+Goal: make the workflow easier to use while keeping the experience visually strong.
 
 1. Add a small local web dashboard.
 2. Show side-by-side sessions and metric trends.
 3. Add short natural-language feedback grounded in measured frames.
-4. Keep raw personal video local by default.
+4. Export clean open examples when a session is cleared for release.
+
+## Milestone 6: Visual Intelligence
+
+Goal: make the project feel impressive without hiding the underlying measurements.
+
+1. Add pseudo-3D skeleton views.
+2. Add motion trails for hands, club, ball, and basketball shots.
+3. Build polished report pages that combine video stills, skeletons, timing, and metrics.
+4. Keep visuals data-grounded, not decorative.

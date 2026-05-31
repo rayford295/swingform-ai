@@ -28,6 +28,11 @@ Open examples should include input and output together:
 3. Use stable filenames under `docs/assets/` for report visuals.
 4. Put source examples under `examples/<demo-name>/`.
 5. Avoid cluttered screenshots when a cropped visual index or skeleton figure explains the result better.
+6. Aim for visual polish, but keep every impressive view tied to measurable data.
+
+## Public Boundary
+
+Do not add private chats, screenshots, meeting notes, or market conversations. Public docs can describe the product direction, but they should not expose how a private idea was discussed.
 
 ## Development
 
@@ -58,4 +63,3 @@ python scripts/analyze_local_golf_video.py \
   --handedness right \
   --events-json examples/golf_swing_demo_events.json
 ```
-
