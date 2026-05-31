@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swingform-ai"
+version = "0.1.0"
+description = "AI-assisted golf swing analysis with a shared posture-control core for basketball shot form."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Yifan Yang" }]
+dependencies = []
+
+[project.optional-dependencies]
+pose = [
+  "mediapipe>=0.10",
+  "opencv-python>=4.9",
+]
+dev = [
+  "ruff>=0.4",
+]
+
+[project.scripts]
+swingform-analyze = "swingform_ai.analyze_pose_json:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+

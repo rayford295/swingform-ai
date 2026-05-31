@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Local data and models
+data/local/
+models/local/
+*.mp4
+*.mov
+*.m4v
+*.avi
+*.mkv
+*.pt
+*.pth
+*.onnx
+*.task
+
+# Generated outputs
+outputs/
+reports/
+*.log
+
+# macOS
+.DS_Store
+
