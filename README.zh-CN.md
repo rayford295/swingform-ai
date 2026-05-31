@@ -20,7 +20,9 @@ SwingForm AI 是一个把人工智能、golf swing 分析和未来 basketball sh
 | `docs/requirements.md` | 需求、MVP、指标和后续路线 |
 | `docs/architecture.md` | 视频、姿态估计、动作分段、指标和反馈的架构 |
 | `docs/data_governance.md` | 私人视频和公开数据的边界 |
+| `docs/personal_data_program.md` | 长期个人训练数据、标注、指标和报告计划 |
 | `src/swingform_ai/` | Python 姿态分析核心代码 |
+| `scripts/register_local_session.py` | 本地私有训练视频登记入口 |
 | `examples/` | 可以安全提交的合成样例 |
 | `tests/` | 几何和运动指标的单元测试 |
 
@@ -44,3 +46,8 @@ SwingForm AI 是一个把人工智能、golf swing 分析和未来 basketball sh
 
 你的个人训练视频默认只留在本地，不进 git。仓库只提交代码、文档、合成样例、去标识化指标和明确可以公开的材料。
 
+登记一个本地私有视频：
+
+```bash
+python scripts/register_local_session.py /path/to/golf.mp4 --sport golf
+```

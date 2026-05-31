@@ -20,7 +20,9 @@ The project starts with golf because a golf swing has well-defined events and re
 | `docs/requirements.md` | Product requirements, MVP scope, and evaluation targets |
 | `docs/architecture.md` | Modular pipeline for video, pose, phase detection, metrics, and feedback |
 | `docs/data_governance.md` | Privacy boundary for personal videos, public datasets, and derived metrics |
+| `docs/personal_data_program.md` | Long-term plan for private practice data, labels, metrics, and reports |
 | `src/swingform_ai/` | Lightweight Python package for pose schemas, geometry, and sport profiles |
+| `scripts/register_local_session.py` | Local-only session manifest tool for personal practice videos |
 | `examples/` | Small synthetic examples that are safe to commit |
 | `tests/` | Unit tests for geometry and sport metric helpers |
 | `data/` | Data policy and local-only data folders |
@@ -40,6 +42,12 @@ python -m pip install -e .
 ```bash
 python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport golf
 python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport basketball
+```
+
+5. Register a private local practice video without committing it:
+
+```bash
+python scripts/register_local_session.py /path/to/golf.mp4 --sport golf
 ```
 
 ## MVP Definition
@@ -77,6 +85,7 @@ This keeps the first version small while leaving room for future 3D reconstructi
 Personal practice videos are local-only by default. Commit only code, documentation, synthetic examples, de-identified aggregate metrics, and small approved screenshots. Raw videos, faces, exact timestamps from private sessions, commercial app exports, and downloaded model weights stay outside git unless they are explicitly cleared.
 
 See [docs/data_governance.md](docs/data_governance.md) for the full boundary.
+See [docs/personal_data_program.md](docs/personal_data_program.md) for the long-term personal data plan.
 
 ## Roadmap
 

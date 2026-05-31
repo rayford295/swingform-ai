@@ -14,10 +14,11 @@ Status: complete for the first scaffold.
 
 Goal: convert one local golf swing video into pose JSON.
 
-1. Add a MediaPipe pose backend.
-2. Save per-frame landmarks and confidence values.
-3. Export annotated frame previews.
-4. Record failure modes for lighting, camera angle, occlusion, and clothing.
+1. Register local personal videos with ignored session manifests.
+2. Add a MediaPipe pose backend.
+3. Save per-frame landmarks and confidence values.
+4. Export annotated frame previews.
+5. Record failure modes for lighting, camera angle, occlusion, and clothing.
 
 ## Milestone 2: Golf Swing Analysis
 
@@ -54,4 +55,3 @@ Goal: make the workflow easier to use without hiding the research logic.
 2. Show side-by-side sessions and metric trends.
 3. Add short natural-language feedback grounded in measured frames.
 4. Keep raw personal video local by default.
-
