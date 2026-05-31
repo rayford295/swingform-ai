@@ -1,6 +1,6 @@
 # Research Scan, 2026-05-31
 
-Intended reader: Yifan Yang and future collaborators who want a practical research repository before deciding whether this becomes a product.
+Intended reader: Yifan Yang and future collaborators who want a practical open-source sports-AI project before deciding whether this becomes a product.
 
 ## Short Answer
 
@@ -77,4 +77,3 @@ The MVP is successful when one local swing video can produce:
 3. A table of interpretable metrics.
 4. A concise feedback report.
 5. A reproducible command that another collaborator can run.
-

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Register a private local practice video without committing the raw video."""
+"""Register a local practice video before promoting it into an open example."""
 
 from __future__ import annotations
 
@@ -42,4 +42,3 @@ def main(argv: list[str] | None = None) -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -1,4 +1,4 @@
-"""Local-only personal practice session registration."""
+"""Local practice session registration before publishing an open example."""
 
 from __future__ import annotations
 
@@ -104,7 +104,7 @@ def build_session_manifest(
         "schema_version": "local-session-v1",
         "session_id": safe_session_id,
         "sport": sport,
-        "privacy": "private-local-only",
+        "release_state": "local-draft",
         "source": {
             "path": str(resolved),
             "filename": resolved.name,
@@ -146,4 +146,3 @@ def write_manifest(manifest: dict[str, Any], sessions_root: Path) -> Path:
     manifest_path = target_dir / "manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return manifest_path
-

@@ -1,100 +1,27 @@
 # SwingForm AI
 
-[中文说明](./README.zh-CN.md)
+<p align="center">
+  <img src="docs/assets/readme/hero.png" alt="SwingForm AI golf swing analysis hero" width="980">
+</p>
 
-SwingForm AI is a research-style toolkit for AI-assisted golf swing analysis, with a shared posture-control core that can later support basketball shooting form.
+<p align="center">
+  <a href="https://github.com/rayford295/swingform-ai/actions/workflows/test.yml"><img alt="Tests" src="https://github.com/rayford295/swingform-ai/actions/workflows/test.yml/badge.svg"></a>
+  <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f6f4e"></a>
+  <img alt="Python" src="https://img.shields.io/badge/python-3.10%2B-2458a6">
+  <img alt="Sports" src="https://img.shields.io/badge/sports-golf%20%2B%20basketball-c46a2c">
+</p>
 
-The first release focuses on one practical loop:
+SwingForm AI is an open-source sports-AI toolkit for turning real practice video into pose landmarks, swing phases, and explainable posture metrics. Golf is the first profile. Basketball shot form is built into the architecture as the next sport profile.
 
-```text
-phone video -> pose landmarks -> movement phase -> biomechanical metrics -> coaching cue
-```
-
-The project starts with golf because a golf swing has well-defined events and repeatable practice footage. The same architecture keeps sport-specific rules separate, so basketball can add shot phases, release metrics, and follow-through checks without rewriting the pose pipeline.
-
-## Current Repository Map
-
-| Path | Use |
-| --- | --- |
-| `docs/research_scan_2026-05-31.md` | Current research and product scan for golf and basketball posture analysis |
-| `docs/requirements.md` | Product requirements, MVP scope, and evaluation targets |
-| `docs/architecture.md` | Modular pipeline for video, pose, phase detection, metrics, and feedback |
-| `docs/data_governance.md` | Privacy boundary for personal videos, public datasets, and derived metrics |
-| `docs/personal_data_program.md` | Long-term plan for private practice data, labels, metrics, and reports |
-| `src/swingform_ai/` | Lightweight Python package for pose schemas, geometry, and sport profiles |
-| `scripts/register_local_session.py` | Local-only session manifest tool for personal practice videos |
-| `scripts/analyze_local_golf_video.py` | Local golf video analyzer with public-safe demo export |
-| `examples/` | Open examples, including the first golf swing video and derived analysis files |
-| `tests/` | Unit tests for geometry and sport metric helpers |
-| `data/` | Data policy and local-only data folders |
-
-## Start Here
-
-1. Read the research scan in [docs/research_scan_2026-05-31.md](docs/research_scan_2026-05-31.md).
-2. Review the requirements in [docs/requirements.md](docs/requirements.md).
-3. Install the package in editable mode:
-
-```bash
-python -m pip install -e .
-```
-
-4. Run the tiny pose-metric demo:
-
-```bash
-python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport golf
-python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport basketball
-```
-
-5. Register a local practice video:
-
-```bash
-python scripts/register_local_session.py /path/to/golf.mp4 --sport golf
-```
-
-## MVP Definition
-
-The first milestone is not a polished mobile app. It is a reproducible analysis notebook and command-line workflow that can:
-
-1. Accept a single-person golf swing video or exported pose JSON.
-2. Estimate body landmarks with a pluggable backend such as MediaPipe, YOLO pose, or MMPose.
-3. Segment a swing into coarse events such as address, top, impact, and finish.
-4. Compute interpretable metrics such as elbow angle, knee flexion, shoulder-hip separation, tempo, and balance proxies.
-5. Generate a short feedback report with timestamps, annotated frames, and drill ideas.
-
-Basketball is planned as the second sport profile:
-
-1. Detect set, dip, lift, release, follow-through, and landing phases.
-2. Track shooting-side elbow, wrist, hip, knee, ankle, balance, release height, and release timing.
-3. Compare a player against their own best session before comparing against generic pro templates.
-
-## Technical Direction
-
-The repo separates general movement analysis from sport knowledge:
+This is not a paper repository. It is meant to be beautiful, inspectable, practical, and fun to improve.
 
 ```text
-video_io        -> frame sampling and metadata
-pose_backends   -> MediaPipe, YOLO pose, MMPose, or exported keypoints
-phase_models    -> golf swing events or basketball shot phases
-metrics         -> angles, stability, tempo, and symmetry
-feedback        -> rules, reports, and future LLM-assisted explanations
+practice video -> pose landmarks -> movement phase -> biomechanical metrics -> feedback
 ```
 
-This keeps the first version small while leaving room for future 3D reconstruction, ball tracking, club tracking, and real-time practice feedback.
+## Open Demo
 
-## Data Boundary
-
-This is an open-source project. Practice videos, derived pose files, metrics, and reports can be committed when they are explicitly cleared for release. Local-only folders still exist for drafts, experiments, and files that are not ready to publish. Downloaded model weights, virtual environments, caches, and credentials stay outside git because they are reproducible or machine-specific.
-
-See [docs/data_governance.md](docs/data_governance.md) for the full boundary.
-See [docs/personal_data_program.md](docs/personal_data_program.md) for the long-term personal data plan.
-
-## First Local Demo
-
-The first golf sample is now committed as an open example, together with pose-derived metrics and skeleton views.
-
-![Golf swing metric timeline](docs/assets/golf-swing-demo/metric_timeline.png)
-
-![Golf swing skeleton keyposes](docs/assets/golf-swing-demo/skeleton_keyposes.png)
+The first golf sample is committed as a full open example. The repo includes the source clip, pose export, metrics, report summary, and visual indexes.
 
 | Signal | Value |
 | --- | ---: |
@@ -104,9 +31,9 @@ The first golf sample is now committed as an open example, together with pose-de
 | Detected swing cycles | 2 |
 | Mean landmark visibility | 0.805 |
 
-The checked clip contains one slower practice motion and one fuller swing. Event labels are human-checked in this first example, and `impact` is an impact or low-point proxy until club and ball tracking are added.
+![Golf swing metric timeline](docs/assets/golf-swing-demo/metric_timeline.png)
 
-Open example files:
+![Golf swing skeleton keyposes](docs/assets/golf-swing-demo/skeleton_keyposes.png)
 
 | File | Use |
 | --- | --- |
@@ -117,18 +44,32 @@ Open example files:
 | [examples/golf-swing-demo/contact_sheet.jpg](examples/golf-swing-demo/contact_sheet.jpg) | Full-video visual index |
 | [examples/golf-swing-demo/swing_timeline.jpg](examples/golf-swing-demo/swing_timeline.jpg) | Human-check timeline for event labels |
 
-See [docs/examples/golf_swing_demo_2026-05-31.md](docs/examples/golf_swing_demo_2026-05-31.md) and [examples/golf_swing_demo_summary.json](examples/golf_swing_demo_summary.json) for the full derived report.
+Read the full demo report in [docs/examples/golf_swing_demo_2026-05-31.md](docs/examples/golf_swing_demo_2026-05-31.md).
 
-## Roadmap
+## Quickstart
 
-See [docs/roadmap.md](docs/roadmap.md) for the milestone plan.
-
-## Development
-
-Install in editable mode:
+Install the package:
 
 ```bash
 python -m pip install -e .
+```
+
+Run the tiny JSON metric demo:
+
+```bash
+python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport golf
+python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport basketball
+```
+
+Analyze the open golf video:
+
+```bash
+python -m pip install -e ".[pose]"
+python scripts/analyze_local_golf_video.py \
+  examples/golf-swing-demo/golf.mp4 \
+  --session-id golf-swing-demo \
+  --handedness right \
+  --events-json examples/golf_swing_demo_events.json
 ```
 
 Run tests:
@@ -137,6 +78,66 @@ Run tests:
 python -m unittest discover -s tests
 ```
 
-## Status
+## What It Measures
 
-Created on 2026-05-31 as a passion-driven research project around golf, basketball, AI posture analysis, and personal practice feedback.
+SwingForm AI currently measures body kinematics from single-camera pose landmarks.
+
+| Layer | Current capability |
+| --- | --- |
+| Video QA | Duration, frame rate, resolution, frame coverage |
+| Pose estimation | MediaPipe Pose Landmarker body landmarks |
+| Golf phases | Address, top, impact or low-point proxy, finish |
+| Metrics | Elbow angle, knee angle, hand height, wrist speed, shoulder-hip proxy, head and hip drift |
+| Reports | Markdown report, JSON summary, CSV metrics, skeleton keyposes, timeline chart |
+
+Current limits are explicit: it does not yet measure club-head speed, ball speed, spin, launch angle, or carry distance.
+
+## Project Map
+
+| Path | Use |
+| --- | --- |
+| `examples/golf-swing-demo/` | Open source video, pose export, metrics, and report inputs |
+| `docs/examples/` | Human-readable demo reports |
+| `docs/assets/` | README and report visuals |
+| `scripts/analyze_local_golf_video.py` | Golf video analyzer with open demo export |
+| `scripts/register_local_session.py` | Local session manifest tool |
+| `src/swingform_ai/` | Pose schema, geometry, profiles, and CLI helpers |
+| `tests/` | Geometry, profile, and local-session tests |
+| `docs/requirements.md` | Product requirements and MVP scope |
+| `docs/architecture.md` | Video, pose, phase, metric, and feedback architecture |
+| `docs/roadmap.md` | Milestone plan |
+
+## Design Principles
+
+1. Beauty matters: the README, charts, and reports should be easy to scan.
+2. Open examples matter: a visitor should see source input and derived output together.
+3. Practical metrics matter: every score should point to a frame, phase, or measurable posture.
+4. Sport profiles stay separate: golf and basketball share the pose core but keep their own phases and metrics.
+5. Claims stay calibrated: single-camera pose is useful, but it is not a launch monitor or a certified coach.
+
+## Roadmap
+
+Near-term:
+
+1. Improve club and ball tracking for golf.
+2. Add cleaner event detection from labeled examples.
+3. Build a richer report page with side-by-side swings.
+4. Add the basketball shooting profile.
+
+Long-term:
+
+1. Compare new sessions against a personal best library.
+2. Add optional multi-view or 3D reconstruction.
+3. Build a lightweight local web app for practice review.
+4. Grow a clean open dataset of cleared sports practice examples.
+
+## Contributing
+
+Contributions should improve usefulness, beauty, reproducibility, or sport coverage. Start with [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Links
+
+- [中文说明](./README.zh-CN.md)
+- [Technology and product scan](docs/research_scan_2026-05-31.md)
+- [Open-source data boundary](docs/data_governance.md)
+- [Personal data program](docs/personal_data_program.md)

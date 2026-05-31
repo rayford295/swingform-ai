@@ -4,7 +4,7 @@
 
 Status: complete for the first scaffold.
 
-1. Define the problem and privacy boundary.
+1. Define the problem and open-source release boundary.
 2. Add research scan and requirements.
 3. Create a small Python package with geometry helpers.
 4. Add golf and basketball sport profiles.

@@ -1,6 +1,6 @@
 {
-  "source": "human-checked labels from private local golf video",
-  "privacy_note": "Raw video is not committed. These labels are used to make the public derived example reproducible.",
+  "source": "human-checked labels from examples/golf-swing-demo/golf.mp4",
+  "release_note": "These labels make the open derived example reproducible.",
   "swings": [
     {
       "swing": 1,
