@@ -29,6 +29,7 @@ Open examples should include input and output together:
 4. Put source examples under `examples/<demo-name>/`.
 5. Avoid cluttered screenshots when a cropped visual index or skeleton figure explains the result better.
 6. Aim for visual polish, but keep every impressive view tied to measurable data.
+7. Ball trails and 3D views are priority contributions.
 
 ## Public Boundary
 

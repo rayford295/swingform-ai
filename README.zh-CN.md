@@ -77,9 +77,18 @@ python scripts/analyze_local_golf_video.py \
 
 项目气质和长期方向见 [docs/north_star.md](docs/north_star.md)。
 
+## 技术主线
+
+下一阶段聚焦两个方向：
+
+1. 球的轨迹：球检测、轨迹渲染、平滑拟合，后面再做相机几何下的 3D flight。
+2. 3D 视觉：pseudo-3D skeleton、motion trails，后面再接 world-grounded motion reconstruction。
+
+具体技术路径见 [docs/technical_tracks.md](docs/technical_tracks.md)。
+
 ## 下一步
 
 1. 先把视觉报告做得更酷、更像可以分享的 practice journal。
-2. 加 golf club 和 ball tracking。
-3. 用标注样例改进 event detection。
-4. 加 basketball shooting profile。
+2. 先做 ball trajectory 和漂亮的 trail overlay。
+3. 做 pseudo-3D skeleton review。
+4. 再加 golf club tracking 和 basketball shooting profile。

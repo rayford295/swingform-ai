@@ -92,6 +92,15 @@ SwingForm AI currently measures body kinematics from single-camera pose landmark
 
 Current limits are explicit: it does not yet measure club-head speed, ball speed, spin, launch angle, or carry distance.
 
+## Technical Focus
+
+The next phase focuses on two visual intelligence tracks:
+
+1. Ball trajectory: ball detection, trail rendering, trajectory smoothing, and later camera-aware 3D flight.
+2. 3D-feeling motion review: pseudo-3D skeletons, motion trails, and later world-grounded human motion reconstruction.
+
+See [docs/technical_tracks.md](docs/technical_tracks.md) for the implementation path and references.
+
 ## Project Map
 
 | Path | Use |
@@ -106,6 +115,7 @@ Current limits are explicit: it does not yet measure club-head speed, ball speed
 | `docs/requirements.md` | Product requirements and MVP scope |
 | `docs/architecture.md` | Video, pose, phase, metric, and feedback architecture |
 | `docs/roadmap.md` | Milestone plan |
+| `docs/technical_tracks.md` | Ball trajectory and 3D motion review plan |
 
 ## Design Principles
 
@@ -122,13 +132,13 @@ Read the project taste and long-term direction in [docs/north_star.md](docs/nort
 Near-term:
 
 1. Improve the visual report so the demo feels more cinematic.
-2. Add club and ball tracking for golf.
-3. Add cleaner event detection from labeled examples.
-4. Add the basketball shooting profile.
+2. Add ball trajectory tracking and a polished trail overlay.
+3. Add pseudo-3D skeleton review.
+4. Add club tracking and cleaner event detection.
 
 Long-term:
 
-1. Build pseudo-3D motion review and motion trails.
+1. Build camera-aware 3D ball flight and shot arc.
 2. Compare new sessions against a personal best library.
 3. Build a lightweight local web app for practice review.
 4. Grow a clean open dataset of cleared sports practice examples.
@@ -142,5 +152,6 @@ Contributions should improve usefulness, beauty, reproducibility, or sport cover
 - [中文说明](./README.zh-CN.md)
 - [Technology and product scan](docs/research_scan_2026-05-31.md)
 - [North Star](docs/north_star.md)
+- [Technical tracks](docs/technical_tracks.md)
 - [Open-source data boundary](docs/data_governance.md)
 - [Personal data program](docs/personal_data_program.md)

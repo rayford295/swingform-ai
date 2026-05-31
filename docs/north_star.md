@@ -34,6 +34,10 @@ The public examples should make the project immediately legible. A visitor shoul
 
 ## Signature Directions
 
+### Ball Trajectory as the Visual Hook
+
+Ball trajectory should become one of the project's signature visuals. For golf, the viewer should see launch, trail, impact proxy, and a clean shot line. For basketball, the viewer should see release, arc, entry, and follow-through in one readable scene.
+
 ### 3D-Feeling Motion Review
 
 The project should move beyond flat pose plots. Good future demos can use pseudo-3D skeletons, camera-aware body orientation, motion trails, depth cues, and side-by-side views. They do not need to be perfect lab biomechanics to be valuable.
@@ -78,3 +82,4 @@ If a demo looks impressive but hides the data, it is not finished either.
 
 The target is both: visually strong, data-grounded, and easy to reproduce.
 
+See [technical_tracks.md](technical_tracks.md) for the concrete ball trajectory and 3D implementation plan.

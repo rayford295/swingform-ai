@@ -29,7 +29,25 @@ Goal: produce a first practice-session report.
 3. Generate a markdown report with timestamps and key frames.
 4. Compare own swings across sessions.
 
-## Milestone 3: Golf Event Model
+## Milestone 3: Ball Trajectory
+
+Goal: make the first signature visual around the ball path.
+
+1. Add manually checked ball labels for the open golf demo.
+2. Render a clean 2D ball trail overlay.
+3. Fit a smooth trajectory curve and export `ball_trajectory.json`.
+4. Add YOLO or TrackNet-style automatic detection after the visual workflow is clear.
+
+## Milestone 4: 3D-Feeling Motion Review
+
+Goal: make the motion review feel premium while staying data-grounded.
+
+1. Export normalized 3D landmarks.
+2. Add pseudo-3D skeleton keyposes.
+3. Add motion trails for hands, club proxy, and ball path.
+4. Prototype an orbitable Three.js viewer.
+
+## Milestone 5: Golf Event Model
 
 Goal: replace manual phase labels with a reproducible event model.
 
@@ -38,7 +56,7 @@ Goal: replace manual phase labels with a reproducible event model.
 3. Add confidence and uncertainty to reported phases.
 4. Keep the model optional so the rule-based path still works.
 
-## Milestone 4: Basketball Shot Profile
+## Milestone 6: Basketball Shot Profile
 
 Goal: reuse the core for basketball shooting form.
 
@@ -47,7 +65,7 @@ Goal: reuse the core for basketball shooting form.
 3. Compare new shots against the user's own best session.
 4. Add ball tracking only after the human-pose metrics are stable.
 
-## Milestone 5: Product Prototype
+## Milestone 7: Product Prototype
 
 Goal: make the workflow easier to use while keeping the experience visually strong.
 
@@ -56,7 +74,7 @@ Goal: make the workflow easier to use while keeping the experience visually stro
 3. Add short natural-language feedback grounded in measured frames.
 4. Export clean open examples when a session is cleared for release.
 
-## Milestone 6: Visual Intelligence
+## Milestone 8: Visual Intelligence
 
 Goal: make the project feel impressive without hiding the underlying measurements.
 
