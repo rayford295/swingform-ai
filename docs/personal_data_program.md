@@ -2,18 +2,18 @@
 
 ## Purpose
 
-SwingForm AI should become a long-term personal practice record, not a one-off demo. The project can learn from repeated golf and basketball sessions while keeping raw personal data private.
+SwingForm AI should become a long-term personal practice record, not a one-off demo. The project can learn from repeated golf and basketball sessions while publishing examples that are explicitly cleared for open-source release.
 
 ## Operating Principle
 
-The public repository stores methods. The local workspace stores personal practice data.
+The public repository stores methods and cleared examples. The local workspace stores drafts, experiments, and files not yet ready to publish.
 
 ```text
-public git repo: code, docs, tests, synthetic examples, approved aggregate outputs
-local machine: raw videos, pose exports, private reports, manual labels, session notes
+public git repo: code, docs, tests, cleared videos, pose exports, metrics, reports
+local machine: drafts, uncategorized captures, temporary model files, private notes
 ```
 
-This gives the project room to grow without forcing every practice video into a public artifact.
+This gives the project room to grow while making the open examples genuinely inspectable.
 
 ## Local Session Lifecycle
 
@@ -22,7 +22,7 @@ This gives the project room to grow without forcing every practice video into a 
 3. Extract pose landmarks into `data/local/pose_exports/`.
 4. Add manual phase labels for a few key frames.
 5. Generate metrics and a markdown report.
-6. Decide whether any aggregate result is safe to publish.
+6. Move the video and derived outputs into `examples/<demo-name>/` when the sample is cleared for release.
 
 Register a session:
 
@@ -30,7 +30,7 @@ Register a session:
 python scripts/register_local_session.py /path/to/golf.mp4 --sport golf
 ```
 
-The command writes a manifest under `data/local/sessions/`, which is ignored by git.
+The command writes a manifest under `data/local/sessions/`, which is ignored by git until the session is promoted into an open example.
 
 ## Longitudinal Metrics
 
@@ -59,29 +59,27 @@ Start small:
 3. Use those labels to validate automatic phase detection.
 4. Keep uncertain labels instead of forcing false precision.
 
-## Privacy Boundary
+## Open-Source Release Boundary
 
-Raw videos stay local. The repo can publish:
+The repo can publish cleared examples:
 
 1. Code.
 2. Documentation.
 3. Synthetic examples.
-4. De-identified aggregate metrics.
-5. Approved screenshots or figures.
+4. Raw practice videos that are intentionally released.
+5. Pose exports, metric tables, reports, screenshots, and figures.
 
 The repo should not publish:
 
-1. Raw personal videos.
-2. Faces or private practice locations.
-3. Exact filming timestamps from private sessions.
-4. Unapproved commercial app exports.
-5. Medical or injury claims.
+1. Unreviewed captures.
+2. Unapproved commercial app exports.
+3. Credentials, cookies, keys, or model weights that should be downloaded upstream.
+4. Medical or injury claims.
 
 ## Near-Term Plan
 
-1. Register the first golf video as a private local session.
+1. Register the first golf video as a local session.
 2. Add MediaPipe pose extraction when the runtime supports it.
 3. Generate the first golf swing pose JSON and metrics report.
 4. Build a small personal session index.
 5. Add basketball after the golf loop can run end to end.
-

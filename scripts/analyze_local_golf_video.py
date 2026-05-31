@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Analyze a private local golf swing video and export public-safe demo assets."""
+"""Analyze a cleared golf swing video and export open demo assets."""
 
 from __future__ import annotations
 
@@ -554,12 +554,23 @@ def write_summary_markdown(
     lines = [
         "# Golf Swing Demo, 2026-05-31",
         "",
-        "This demo analyzes a private local driving-range video. The raw video is not committed.",
-        "Only derived metrics and public-safe skeleton visualizations are published.",
+        "This demo analyzes an open driving-range example video.",
+        "The source clip, pose export, metrics, report summary, and visual indexes are committed so the example is inspectable.",
         "",
         f"![Metric timeline]({asset_prefix}/metric_timeline.png)",
         "",
         f"![Skeleton keyposes]({asset_prefix}/skeleton_keyposes.png)",
+        "",
+        "## Open Example Files",
+        "",
+        "| File | Use |",
+        "| --- | --- |",
+        "| `examples/golf-swing-demo/golf.mp4` | Source golf swing clip |",
+        "| `examples/golf-swing-demo/pose_sequence.json` | MediaPipe pose landmarks for every frame |",
+        "| `examples/golf-swing-demo/metrics.csv` | Per-frame kinematic metrics |",
+        "| `examples/golf-swing-demo/summary.json` | Demo summary for reports |",
+        "| `examples/golf-swing-demo/contact_sheet.jpg` | Full-video visual index |",
+        "| `examples/golf-swing-demo/swing_timeline.jpg` | Human-check timeline for event labels |",
         "",
         "## Video and Detection",
         "",
@@ -602,7 +613,7 @@ def write_summary_markdown(
             "2. MediaPipe Pose Landmarker: frame-level body landmarks.",
             "3. Kinematic geometry: elbows, knees, shoulder-hip separation, hand height, and drift proxies.",
             "4. Temporal analysis: address, top, impact proxy, finish, backswing time, downswing time, and tempo ratio.",
-            "5. Privacy-preserving publication: skeleton keyposes and derived metrics only.",
+        "5. Open example publication: source clip, pose export, metrics, and report assets.",
             "",
             "## Per-Swing Metrics",
             "",
@@ -647,8 +658,8 @@ def build_public_summary(
     mean_visibility = mean(row["mean_visibility"] for row in rows) if rows else 0.0
     return {
         "schema_version": "golf-swing-demo-v1",
-        "source": "private-local-video",
-        "privacy_note": "Raw video is not committed. This file contains derived metrics only.",
+        "source": "examples/golf-swing-demo/golf.mp4",
+        "release_note": "This open-source demo includes the source clip plus derived pose and metric files.",
         "video": {
             "duration_s": video_info.duration_s,
             "fps": video_info.fps,

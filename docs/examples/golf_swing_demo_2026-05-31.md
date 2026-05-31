@@ -1,11 +1,22 @@
 # Golf Swing Demo, 2026-05-31
 
-This demo analyzes a private local driving-range video. The raw video is not committed.
-Only derived metrics and public-safe skeleton visualizations are published.
+This demo analyzes an open driving-range example video.
+The source clip, pose export, metrics, report summary, and visual indexes are committed so the example is inspectable.
 
 ![Metric timeline](../assets/golf-swing-demo/metric_timeline.png)
 
 ![Skeleton keyposes](../assets/golf-swing-demo/skeleton_keyposes.png)
+
+## Open Example Files
+
+| File | Use |
+| --- | --- |
+| `examples/golf-swing-demo/golf.mp4` | Source golf swing clip |
+| `examples/golf-swing-demo/pose_sequence.json` | MediaPipe pose landmarks for every frame |
+| `examples/golf-swing-demo/metrics.csv` | Per-frame kinematic metrics |
+| `examples/golf-swing-demo/summary.json` | Demo summary for reports |
+| `examples/golf-swing-demo/contact_sheet.jpg` | Full-video visual index |
+| `examples/golf-swing-demo/swing_timeline.jpg` | Human-check timeline for event labels |
 
 ## Video and Detection
 
@@ -38,7 +49,7 @@ Event labels are human-checked for this first example. `Impact` is treated as an
 2. MediaPipe Pose Landmarker: frame-level body landmarks.
 3. Kinematic geometry: elbows, knees, shoulder-hip separation, hand height, and drift proxies.
 4. Temporal analysis: address, top, impact proxy, finish, backswing time, downswing time, and tempo ratio.
-5. Privacy-preserving publication: skeleton keyposes and derived metrics only.
+5. Open example publication: source clip, pose export, metrics, and report assets.
 
 ## Per-Swing Metrics
 

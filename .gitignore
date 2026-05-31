@@ -17,6 +17,11 @@ models/*.task
 *.m4v
 *.avi
 *.mkv
+!examples/**/*.mp4
+!examples/**/*.mov
+!examples/**/*.m4v
+!examples/**/*.avi
+!examples/**/*.mkv
 *.pt
 *.pth
 *.onnx

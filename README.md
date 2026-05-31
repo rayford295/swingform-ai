@@ -24,7 +24,7 @@ The project starts with golf because a golf swing has well-defined events and re
 | `src/swingform_ai/` | Lightweight Python package for pose schemas, geometry, and sport profiles |
 | `scripts/register_local_session.py` | Local-only session manifest tool for personal practice videos |
 | `scripts/analyze_local_golf_video.py` | Local golf video analyzer with public-safe demo export |
-| `examples/` | Small synthetic examples that are safe to commit |
+| `examples/` | Open examples, including the first golf swing video and derived analysis files |
 | `tests/` | Unit tests for geometry and sport metric helpers |
 | `data/` | Data policy and local-only data folders |
 
@@ -45,7 +45,7 @@ python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sp
 python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport basketball
 ```
 
-5. Register a private local practice video without committing it:
+5. Register a local practice video:
 
 ```bash
 python scripts/register_local_session.py /path/to/golf.mp4 --sport golf
@@ -83,14 +83,14 @@ This keeps the first version small while leaving room for future 3D reconstructi
 
 ## Data Boundary
 
-Personal practice videos are local-only by default. Commit only code, documentation, synthetic examples, de-identified aggregate metrics, and small approved screenshots. Raw videos, faces, exact timestamps from private sessions, commercial app exports, and downloaded model weights stay outside git unless they are explicitly cleared.
+This is an open-source project. Practice videos, derived pose files, metrics, and reports can be committed when they are explicitly cleared for release. Local-only folders still exist for drafts, experiments, and files that are not ready to publish. Downloaded model weights, virtual environments, caches, and credentials stay outside git because they are reproducible or machine-specific.
 
 See [docs/data_governance.md](docs/data_governance.md) for the full boundary.
 See [docs/personal_data_program.md](docs/personal_data_program.md) for the long-term personal data plan.
 
 ## First Local Demo
 
-The first private golf sample was analyzed as a public-safe derived example. The raw video stays local, while pose-derived metrics and skeleton views are committed for transparency.
+The first golf sample is now committed as an open example, together with pose-derived metrics and skeleton views.
 
 ![Golf swing metric timeline](docs/assets/golf-swing-demo/metric_timeline.png)
 
@@ -105,6 +105,17 @@ The first private golf sample was analyzed as a public-safe derived example. The
 | Mean landmark visibility | 0.805 |
 
 The checked clip contains one slower practice motion and one fuller swing. Event labels are human-checked in this first example, and `impact` is an impact or low-point proxy until club and ball tracking are added.
+
+Open example files:
+
+| File | Use |
+| --- | --- |
+| [examples/golf-swing-demo/golf.mp4](examples/golf-swing-demo/golf.mp4) | Source golf swing clip |
+| [examples/golf-swing-demo/pose_sequence.json](examples/golf-swing-demo/pose_sequence.json) | MediaPipe pose landmarks for every frame |
+| [examples/golf-swing-demo/metrics.csv](examples/golf-swing-demo/metrics.csv) | Per-frame kinematic metrics |
+| [examples/golf-swing-demo/summary.json](examples/golf-swing-demo/summary.json) | Demo summary for reports |
+| [examples/golf-swing-demo/contact_sheet.jpg](examples/golf-swing-demo/contact_sheet.jpg) | Full-video visual index |
+| [examples/golf-swing-demo/swing_timeline.jpg](examples/golf-swing-demo/swing_timeline.jpg) | Human-check timeline for event labels |
 
 See [docs/examples/golf_swing_demo_2026-05-31.md](docs/examples/golf_swing_demo_2026-05-31.md) and [examples/golf_swing_demo_summary.json](examples/golf_swing_demo_summary.json) for the full derived report.
 
