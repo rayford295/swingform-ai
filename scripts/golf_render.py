@@ -22,6 +22,7 @@ import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+from swingform_ai.ball_tracking import build_ball_track as build_conservative_ball_track
 from swingform_ai.geometry import angle_degrees, distance, line_angle_2d
 from swingform_ai.profiles import golf
 from swingform_ai.schema import FramePose, Landmark, PoseSequence
@@ -564,25 +565,33 @@ def build_ball_track(
     pose_index: dict[int, dict[str, Any]],
     fps: float,
     info: VideoInfo,
+    shot_direction: str,
 ) -> tuple[list[dict[str, Any]], str]:
-    impact_frame = swing["impact_frame"]
-    w, h = info.width, info.height
-    launch = _wrist_midpoint(pose_index, impact_frame, w, h)
-    p = _adaptive_params(w, h)
-
-    candidates = detect_ball_candidates(video_path, impact_frame, fps, info, pose_index)
-    track = _chain_track(candidates, launch, fps, p["max_jump_px"])
-    track = _ransac_parabola_fit(track)   # reject non-parabolic noise
-    track = _smooth_track(track)
-
-    if _is_plausible(track, w):
-        print(f"  S{swing['swing']}: real track — {len(track)} pts")
-        return track, "real"
-
-    print(f"  S{swing['swing']}: proxy (no plausible ball found)")
-    if launch is None:
-        launch = (0.54*w, 0.66*h)
-    return _proxy_track(launch, impact_frame, fps, w, h), "proxy"
+    result = build_conservative_ball_track(
+        video_path,
+        swing,
+        pose_index,
+        fps,
+        info.width,
+        info.height,
+        shot_direction=shot_direction,
+    )
+    anchor = result.anchor.to_dict() if result.anchor else None
+    print(
+        "  "
+        + json.dumps(
+            {
+                "swing": swing["swing"],
+                "trail": result.source,
+                "confidence": result.confidence,
+                "points": len(result.points),
+                "anchor": anchor,
+                "diagnostics": result.diagnostics,
+            },
+            sort_keys=True,
+        )
+    )
+    return result.points_as_dicts(), result.source
 
 
 # ── drawing ───────────────────────────────────────────────────────────────────
@@ -591,6 +600,7 @@ def draw_trail(
     frame: np.ndarray,
     track: list[dict[str, Any]],
     current_frame: int,
+    trail_kind: str,
     tail_frames: int = 50,
 ) -> None:
     visible = [
@@ -600,12 +610,16 @@ def draw_trail(
     ]
     if len(visible) < 2:
         return
-    for thickness, color in [(10, (15, 95, 255)), (5, (40, 210, 255)), (2, (255, 255, 255))]:
+    if trail_kind == "detector":
+        style = [(10, (15, 95, 255)), (5, (40, 210, 255)), (2, (255, 255, 255))]
+    else:
+        style = [(7, (70, 70, 70)), (4, (120, 175, 255)), (2, (235, 245, 255))]
+    for thickness, color in style:
         for a, b in zip(visible, visible[1:]):
             cv2.line(frame, a, b, color, thickness, cv2.LINE_AA)
     tip = visible[-1]
     cv2.circle(frame, tip, 7,  (255, 255, 255), -1, cv2.LINE_AA)
-    cv2.circle(frame, tip, 11, (40, 210, 255),   2, cv2.LINE_AA)
+    cv2.circle(frame, tip, 11, style[1][1], 2, cv2.LINE_AA)
 
 
 def lm_px(lm: dict[str, Any], w: int, h: int) -> tuple[int, int]:
@@ -687,12 +701,16 @@ def draw_hud(
     frame: np.ndarray,
     time_s: float,
     event: tuple[str, int] | None,
+    trail_kind: str | None,
 ) -> None:
     h, w = frame.shape[:2]
     overlay = frame.copy()
     cv2.rectangle(overlay, (0, 0), (w, 28), (10, 10, 10), -1)
     cv2.addWeighted(overlay, 0.55, frame, 0.45, 0, dst=frame)
-    cv2.putText(frame, f"{time_s:.2f}s",
+    label = f"{time_s:.2f}s"
+    if trail_kind:
+        label += f"  trail {trail_kind}"
+    cv2.putText(frame, label,
                 (8, 19), cv2.FONT_HERSHEY_SIMPLEX, 0.52, (200,200,200), 1, cv2.LINE_AA)
     if event:
         phase, swing_n = event
@@ -710,7 +728,7 @@ def render_video(
     video_path: Path,
     pose_index: dict[int, dict[str, Any]],
     event_map: dict[int, tuple[str, int]],
-    all_tracks: list[list[dict[str, Any]]],
+    all_tracks: list[tuple[list[dict[str, Any]], str]],
     info: VideoInfo,
     output_path: Path,
 ) -> None:
@@ -742,10 +760,13 @@ def render_video(
             if len(lm_history) > 12:
                 lm_history.pop(0)
 
-        for track in all_tracks:
-            draw_trail(frame, track, frame_idx)
+        active_trail_kind: str | None = None
+        for track, trail_kind in all_tracks:
+            draw_trail(frame, track, frame_idx, trail_kind)
+            if track and track[0]["frame_index"] <= frame_idx <= track[-1]["frame_index"] + 24:
+                active_trail_kind = trail_kind
 
-        draw_hud(frame, time_s, active_event if active_left > 0 else None)
+        draw_hud(frame, time_s, active_event if active_left > 0 else None, active_trail_kind)
         if active_left > 0:
             active_left -= 1
 
@@ -794,8 +815,9 @@ def main(argv: list[str] | None = None) -> None:
             event_map[swing[f"{phase}_frame"]] = (phase, n)
 
     print("Detecting ball tracks...")
+    shot_direction = "left" if args.handedness == "left" else "right"
     all_tracks = [
-        build_ball_track(args.video, swing, pose_index, info.fps, info)[0]
+        build_ball_track(args.video, swing, pose_index, info.fps, info, shot_direction)
         for swing in events
     ]
 

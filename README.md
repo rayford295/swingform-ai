@@ -25,7 +25,7 @@ video → pose landmarks → swing phases → biomechanical metrics → feedback
 
 <video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf_effects.mp4" controls width="100%"></video>
 
-Depth-aware skeleton coloring · ball detection via optical flow + RANSAC
+Depth-aware skeleton coloring · tee-anchored ball trail with detector confidence gates
 
 </td>
 <td width="50%">
@@ -71,10 +71,10 @@ python -m unittest discover -s tests
 | Pose | MediaPipe Pose Landmarker — 33 landmarks, image + world (3D metric) coords |
 | Golf phases | Address, top, impact proxy, finish — auto-detected from wrist path |
 | Metrics | Elbow angle, knee angle, hand height, wrist speed, shoulder-hip separation, head and hip drift |
-| Ball tracking | Optical flow + body-exclusion mask + RANSAC parabolic fit |
+| Ball tracking | Tee/ball anchor estimation, conservative detector checks, and low-confidence proxy fallback |
 | Output | CSV metrics, JSON summary, skeleton video, 3D viewer, Markdown report |
 
-Current limits: no club-head speed, ball speed, spin, launch angle, or carry distance. See [docs/technical_tracks.md](docs/technical_tracks.md) for the roadmap on ball trajectory and 3D motion review.
+Current limits: the ball trail is a visual review aid, not a measured flight model. The pipeline does not yet estimate club-head speed, ball speed, spin, launch angle, or carry distance. See [docs/technical_tracks.md](docs/technical_tracks.md) for the roadmap on ball trajectory and 3D motion review.
 
 ## Open Examples
 
