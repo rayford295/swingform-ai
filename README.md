@@ -64,6 +64,8 @@ A second full pipeline run on a real practice clip, committed as an inspectable 
 | Detected swing cycles | 2 |
 | Mean landmark visibility | 0.814 |
 
+<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf.mp4" controls width="320"></video>
+
 ![Metric timeline — Yifan Golf 05·20](docs/assets/yifan-golf-0520/metric_timeline.png)
 
 ![Skeleton keyposes — Yifan Golf 05·20](docs/assets/yifan-golf-0520/skeleton_keyposes.png)
