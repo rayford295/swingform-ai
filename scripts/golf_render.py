@@ -612,19 +612,75 @@ def lm_px(lm: dict[str, Any], w: int, h: int) -> tuple[int, int]:
     return (int(lm["x"]*w), int(lm["y"]*h))
 
 
+# Segment colors (BGR): arms=gold, legs=green, spine/shoulders=cyan
+_EDGE_COLORS: dict[tuple[str, str], tuple[int, int, int]] = {
+    ("left_shoulder",  "right_shoulder"): (255, 229,   0),  # cyan
+    ("left_shoulder",  "left_hip"):       (255, 229,   0),
+    ("right_shoulder", "right_hip"):      (255, 229,   0),
+    ("left_hip",       "right_hip"):      (255, 229,   0),
+    ("left_shoulder",  "left_elbow"):     ( 64, 201, 255),  # gold
+    ("left_elbow",     "left_wrist"):     ( 64, 201, 255),
+    ("right_shoulder", "right_elbow"):    ( 64, 201, 255),
+    ("right_elbow",    "right_wrist"):    ( 64, 201, 255),
+    ("left_hip",       "left_knee"):      ( 85, 255,  57),  # green
+    ("left_knee",      "left_ankle"):     ( 85, 255,  57),
+    ("right_hip",      "right_knee"):     ( 85, 255,  57),
+    ("right_knee",     "right_ankle"):    ( 85, 255,  57),
+}
+
+
+def _depth_scale(z: float, lo: float = -0.3, hi: float = 0.3) -> float:
+    """Map Z (toward camera) to 0–1 brightness scale."""
+    return max(0.4, min(1.0, (z - lo) / (hi - lo + 1e-6)))
+
+
 def draw_skeleton(frame: np.ndarray, lms: dict[str, Any]) -> None:
     h, w = frame.shape[:2]
     for s, e in SKELETON_EDGES:
-        if s in lms and e in lms:
-            cv2.line(frame, lm_px(lms[s], w, h), lm_px(lms[e], w, h),
-                     COLOR_BONE, 2, cv2.LINE_AA)
+        if s not in lms or e not in lms:
+            continue
+        a  = lm_px(lms[s], w, h)
+        b  = lm_px(lms[e], w, h)
+        z  = (lms[s].get("z", 0) + lms[e].get("z", 0)) / 2
+        sc = _depth_scale(z)
+        base = _EDGE_COLORS.get((s, e), _EDGE_COLORS.get((e, s), (240, 240, 240)))
+        color = tuple(int(c * sc) for c in base)
+        thickness = 3 if sc > 0.7 else 2
+        cv2.line(frame, a, b, color, thickness, cv2.LINE_AA)
+
     for name in JOINT_NAMES:
         if name not in lms:
             continue
-        pt    = lm_px(lms[name], w, h)
-        color = COLOR_HEAD if name == "nose" else COLOR_JOINT
-        cv2.circle(frame, pt, 4, color, -1, cv2.LINE_AA)
-        cv2.circle(frame, pt, 4, (30, 30, 30), 1, cv2.LINE_AA)
+        pt = lm_px(lms[name], w, h)
+        z  = lms[name].get("z", 0)
+        sc = _depth_scale(z)
+        if name == "nose":
+            cv2.circle(frame, pt, 6, (255, 255, 255), -1, cv2.LINE_AA)
+            cv2.circle(frame, pt, 6, (30, 30, 30), 1, cv2.LINE_AA)
+        else:
+            r = 5 if sc > 0.7 else 3
+            cv2.circle(frame, pt, r, (int(255*sc), int(200*sc), int(64*sc)), -1, cv2.LINE_AA)
+            cv2.circle(frame, pt, r, (20, 20, 20), 1, cv2.LINE_AA)
+
+
+def draw_ghost_trail(
+    frame: np.ndarray,
+    history: list[dict[str, Any]],
+    steps: int = 4,
+) -> None:
+    """Draw fading ghost skeletons from recent frames."""
+    h, w = frame.shape[:2]
+    overlay = frame.copy()
+    for i, past_lms in enumerate(reversed(history[-steps:])):
+        alpha = 0.12 * (steps - i) / steps
+        for s, e in SKELETON_EDGES:
+            if s not in past_lms or e not in past_lms:
+                continue
+            a = lm_px(past_lms[s], w, h)
+            b = lm_px(past_lms[e], w, h)
+            cv2.line(overlay, a, b, (120, 180, 255), 1, cv2.LINE_AA)
+        cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0, frame)
+        overlay = frame.copy()
 
 
 def draw_hud(
@@ -666,6 +722,7 @@ def render_video(
     frame_idx = 0
     active_event: tuple[str, int] | None = None
     active_left = 0
+    lm_history: list[dict[str, Any]] = []   # for ghost trail
 
     while True:
         ok, frame = cap.read()
@@ -678,7 +735,12 @@ def render_video(
 
         pf = pose_index.get(frame_idx)
         if pf:
+            if lm_history:
+                draw_ghost_trail(frame, lm_history)
             draw_skeleton(frame, pf["landmarks"])
+            lm_history.append(pf["landmarks"])
+            if len(lm_history) > 12:
+                lm_history.pop(0)
 
         for track in all_tracks:
             draw_trail(frame, track, frame_idx)
