@@ -9,8 +9,8 @@
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f6f4e"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.10%2B-2458a6">
   <img alt="Sports" src="https://img.shields.io/badge/sports-golf%20%2B%20basketball-c46a2c">
-  <a href="https://rayford295.github.io/#swingform-ai"><img alt="Website" src="https://img.shields.io/badge/demo-website-1d6fa5"></a>
-  <a href="docs/viewer/pose3d.html"><img alt="3D Viewer" src="https://img.shields.io/badge/3D-pose%20viewer-7c3aed"></a>
+  <a href="https://rayford295.github.io/swingform-ai/"><img alt="Website" src="https://img.shields.io/badge/website-live-1d6fa5"></a>
+  <a href="https://rayford295.github.io/swingform-ai/viewer/pose3d.html"><img alt="3D Viewer" src="https://img.shields.io/badge/3D-pose%20viewer-7c3aed"></a>
 </p>
 
 ## Live Demo
