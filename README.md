@@ -52,6 +52,31 @@ The first golf sample is committed as a full open example. The repo includes the
 
 Read the full demo report in [docs/examples/golf_swing_demo_2026-05-31.md](docs/examples/golf_swing_demo_2026-05-31.md).
 
+## Example Session — Yifan Golf 05·20
+
+A second full pipeline run on a real practice clip, committed as an inspectable personal session example.
+
+| Signal | Value |
+| --- | ---: |
+| Video length | 7.19s |
+| Resolution | 320x568 |
+| Pose coverage | 216 / 216 frames |
+| Detected swing cycles | 2 |
+| Mean landmark visibility | 0.814 |
+
+![Metric timeline — Yifan Golf 05·20](docs/assets/yifan-golf-0520/metric_timeline.png)
+
+![Skeleton keyposes — Yifan Golf 05·20](docs/assets/yifan-golf-0520/skeleton_keyposes.png)
+
+| File | Use |
+| --- | --- |
+| [examples/yifan-golf-0520/golf.mp4](examples/yifan-golf-0520/golf.mp4) | Source clip |
+| [examples/yifan-golf-0520/pose_sequence.json](examples/yifan-golf-0520/pose_sequence.json) | MediaPipe pose landmarks for every frame |
+| [examples/yifan-golf-0520/metrics.csv](examples/yifan-golf-0520/metrics.csv) | Per-frame kinematic metrics |
+| [examples/yifan-golf-0520/summary.json](examples/yifan-golf-0520/summary.json) | Swing summary |
+
+Read the full session report in [docs/examples/yifan-golf-0520.md](docs/examples/yifan-golf-0520.md).
+
 ## Quickstart
 
 Install the package:
@@ -122,6 +147,7 @@ See [docs/technical_tracks.md](docs/technical_tracks.md) for the implementation 
 | Path | Use |
 | --- | --- |
 | `examples/golf-swing-demo/` | Open source video, pose export, metrics, and report inputs |
+| `examples/yifan-golf-0520/` | Personal session example — source clip, pose export, metrics, and summary |
 | `docs/examples/` | Human-readable demo reports |
 | `docs/assets/` | README and report visuals |
 | `scripts/analyze_local_golf_video.py` | Golf video analyzer with open demo export |
