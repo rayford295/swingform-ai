@@ -1,0 +1,146 @@
+{
+  "schema_version": "golf-swing-demo-v1",
+  "source": "examples/golf-swing-demo/golf.mp4",
+  "release_note": "This open-source demo includes the source clip plus derived pose and metric files.",
+  "video": {
+    "duration_s": 26.966666666666665,
+    "fps": 30.0,
+    "total_frames": 809,
+    "width": 720,
+    "height": 1280
+  },
+  "pose": {
+    "backend": "MediaPipe Pose Landmarker Lite",
+    "detected_frames": 802,
+    "total_frames": 809,
+    "coverage_pct": 99.13473423980223,
+    "mean_visibility": 0.888335007878027
+  },
+  "swing_summaries": [
+    {
+      "swing": 1,
+      "address_frame": 113,
+      "top_frame": 174,
+      "impact_frame": 207,
+      "finish_frame": 245,
+      "address_time_s": 3.7666666666666666,
+      "top_time_s": 5.8,
+      "impact_time_s": 6.9,
+      "finish_time_s": 8.166666666666666,
+      "backswing_time_s": 2.033333333333333,
+      "downswing_time_s": 1.1000000000000005,
+      "tempo_ratio": 1.8484848484848475,
+      "address": {
+        "lead_knee_angle_deg": 72.55412120071279,
+        "trail_knee_angle_deg": 70.60521090887543,
+        "stance_width_dist": 0.21203834361985094,
+        "torso_line_angle_deg": -93.22800026138052,
+        "mean_visibility": 0.9401376969886549
+      },
+      "top": {
+        "lead_arm_angle_deg": 144.7108088499022,
+        "trail_elbow_angle_deg": 157.31329756831548,
+        "shoulder_hip_separation_deg": 7.420734774963364,
+        "hand_height_norm": 0.596080094575882,
+        "mean_visibility": 0.8933597441875574
+      },
+      "impact": {
+        "lead_knee_angle_deg": 171.80063568345759,
+        "trail_knee_angle_deg": 135.03376618166723,
+        "head_drift_from_address": 0.6473379482622958,
+        "hip_drift_from_address": 0.03170529179053169,
+        "mean_visibility": 0.8209804246822993
+      },
+      "finish": {
+        "head_drift_from_address": 0.32541809870441507,
+        "hip_drift_from_address": 0.11867685105859481,
+        "mean_visibility": 0.935890586087198
+      }
+    },
+    {
+      "swing": 2,
+      "address_frame": 549,
+      "top_frame": 627,
+      "impact_frame": 668,
+      "finish_frame": 698,
+      "address_time_s": 18.3,
+      "top_time_s": 20.9,
+      "impact_time_s": 22.266666666666666,
+      "finish_time_s": 23.266666666666666,
+      "backswing_time_s": 2.599999999999998,
+      "downswing_time_s": 1.3666666666666671,
+      "tempo_ratio": 1.9024390243902416,
+      "address": {
+        "lead_knee_angle_deg": 65.84720395708702,
+        "trail_knee_angle_deg": 64.89194715659694,
+        "stance_width_dist": 0.21359486975167177,
+        "torso_line_angle_deg": -97.55444651299568,
+        "mean_visibility": 0.9502045638633497
+      },
+      "top": {
+        "lead_arm_angle_deg": 164.2260466733139,
+        "trail_elbow_angle_deg": 168.08241037902363,
+        "shoulder_hip_separation_deg": 6.212980324225981,
+        "hand_height_norm": 0.5396598875522614,
+        "mean_visibility": 0.8960119287172953
+      },
+      "impact": {
+        "lead_knee_angle_deg": 149.78777867544184,
+        "trail_knee_angle_deg": 143.32315667178906,
+        "head_drift_from_address": 0.8233628550311921,
+        "hip_drift_from_address": 0.023803727054326113,
+        "mean_visibility": 0.8199351195133093
+      },
+      "finish": {
+        "head_drift_from_address": 0.6509492560238364,
+        "hip_drift_from_address": 0.11502510226762237,
+        "mean_visibility": 0.9445309873783228
+      }
+    },
+    {
+      "swing": 3,
+      "address_frame": 742,
+      "top_frame": 798,
+      "impact_frame": 808,
+      "finish_frame": 808,
+      "address_time_s": 24.733333333333334,
+      "top_time_s": 26.6,
+      "impact_time_s": 26.933333333333334,
+      "finish_time_s": 26.933333333333334,
+      "backswing_time_s": 1.8666666666666671,
+      "downswing_time_s": 0.33333333333333215,
+      "tempo_ratio": 5.600000000000021,
+      "address": {
+        "lead_knee_angle_deg": 163.9961965445554,
+        "trail_knee_angle_deg": 166.66657074243182,
+        "stance_width_dist": 0.28473542141970853,
+        "torso_line_angle_deg": -82.79935846701787,
+        "mean_visibility": 0.8692066461750956
+      },
+      "top": {
+        "lead_arm_angle_deg": 157.7598531509152,
+        "trail_elbow_angle_deg": 58.4300620136237,
+        "shoulder_hip_separation_deg": 2.9116582502340407,
+        "hand_height_norm": 0.42961615324020386,
+        "mean_visibility": 0.8528999613993096
+      },
+      "impact": {
+        "lead_knee_angle_deg": 145.89962067812988,
+        "trail_knee_angle_deg": 170.09442664371338,
+        "head_drift_from_address": 0.15021943196438273,
+        "hip_drift_from_address": 0.048801276357449366,
+        "mean_visibility": 0.8728444973627726
+      },
+      "finish": {
+        "head_drift_from_address": 0.15021943196438273,
+        "hip_drift_from_address": 0.048801276357449366,
+        "mean_visibility": 0.8728444973627726
+      }
+    }
+  ],
+  "limitations": [
+    "Single-camera 2D/pseudo-3D body pose only.",
+    "No club-head speed, ball speed, spin, launch angle, or carry distance.",
+    "Automatic event timing is still heuristic. This demo uses human-checked labels."
+  ]
+}
