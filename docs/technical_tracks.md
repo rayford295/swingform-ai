@@ -41,6 +41,60 @@ Start with something visually useful:
 
 This keeps the project moving fast and makes the demo immediately stronger.
 
+### Implementation Retrospective: What We Tried and Where It Breaks
+
+We shipped an initial ball detection pipeline (`scripts/golf_render.py`) and tested it across four real practice videos. The honest assessment is that the results are visually unreliable. This section records what we learned so the next implementation does not repeat the same mistakes.
+
+#### What we built
+
+The pipeline uses three layers stacked on top of each other:
+
+1. **Body exclusion mask.** Dilate all skeleton keypoints into a filled mask and subtract it from the search region. This removes most of the golfer's arms and torso from the candidate pool.
+2. **Farneback optical flow + direction filter.** Compute per-pixel velocity vectors. After a few frames of observation, accumulate a dominant flow direction for the ball and discard blobs pointing more than 75 degrees away from it. The intention is to reject the club head, which follows a circular arc back toward the body after impact.
+3. **RANSAC parabolic fit.** A ball in flight follows projectile physics: x is linear in time, y is quadratic. Run RANSAC to find the largest subset of detected points that fits a parabola and discard the rest.
+
+#### Where it still fails
+
+**The club head problem is not fully solved.** At 30 fps, the club head and the ball occupy nearly identical positions for the first 3–5 frames after impact. We skip those frames deliberately, but the club head is still bright, metallic, and moving fast in the frames that follow. The direction filter helps but does not eliminate the confusion because the club head's follow-through arc and the ball's early flight can point in similar directions for the first few observable frames.
+
+**30 fps is the fundamental constraint.** At a moderate golf swing speed of 80 mph, the ball travels roughly 80–100 pixels between frames in a 320-pixel-wide video. In a 720-pixel-wide video it travels 180–220 pixels. The ball is visible in only 3–8 frames before it exits the frame entirely. With so few observations, any detector that relies on multi-frame consistency has almost no signal to work with.
+
+**Brightness and size overlap.** A golf ball (white, ~4–8 pixels wide at typical recording distance) is visually similar to a club face reflection (metallic, similarly sized and bright at impact). Simple brightness thresholds cannot separate them without spatial or temporal context.
+
+**Camera motion compounds everything.** Several of the test videos (especially `Yifan-golf-06.01.mp4`) show significant camera shake. Frame differencing and optical flow both interpret camera motion as scene motion, flooding the candidate pool with false positives across the entire frame.
+
+#### What professional systems actually do
+
+TopGolf, TrackMan, and Foresight Sports do not use standard video for ball tracking. Their hardware stack is fundamentally different:
+
+| Capability | Professional system | What we have |
+| --- | --- | --- |
+| Capture rate | 200–2000 fps | 25–30 fps |
+| Ball sensor | Doppler radar | None |
+| Illumination | Controlled IR or strobe | Ambient light |
+| Ball type | Standard or marked ball | Any ball |
+| Compute | Dedicated DSP | CPU-bound OpenCV |
+
+Radar systems (TrackMan) measure the Doppler shift of a radio wave reflected off the moving ball. They do not use video at all for trajectory. High-speed camera systems capture 200+ frames per second, giving 10–20 pixels of ball displacement per frame instead of 100+, which makes multi-frame tracking tractable with classical methods.
+
+#### What would actually work for us
+
+In priority order, from most to least practical for this project:
+
+1. **Record in slow motion (120 fps).** Every modern iPhone supports 120 or 240 fps. At 120 fps and 80 mph ball speed, displacement drops from ~90 px/frame to ~22 px/frame. The ball becomes trackable with the same optical-flow approach, and direction filtering becomes far more discriminating because the club head and ball have time to separate visually.
+
+2. **Manual labels for key demo clips.** Add a `ball_labels.csv` for the first 1–2 well-lit clips. Use those to build a correct visual story and calibrate what a good trajectory looks like before trying to detect it automatically.
+
+3. **Fine-tune a small detector on golf-specific data.** TrackNet (designed for badminton) and its derivatives show that a small CNN trained on sport-specific frames can detect sub-pixel blurs of a fast ball. The training data requirement is significant, but a dataset of labeled golf ball positions from top-down range cameras would make this feasible.
+
+4. **Radar or LiDAR as a future hardware path.** Out of scope for a phone-based app but worth noting as the technically correct long-term answer.
+
+#### Current decision
+
+The current overlay is honest about the limitation: `proxy` mode is displayed when no plausible trajectory is found. The ball trail renders as a best-effort visual. We do not claim it is a measured trajectory.
+
+The next concrete step before claiming real ball tracking is to collect 120 fps clips from the same golfer and rerun the same pipeline. If the detection quality improves significantly, 120 fps capture becomes the documented requirement for this feature. If it does not, the correct path is a dedicated detector trained on labeled data.
+
 ## Track 2: 3D-Feeling Motion Review
 
 ### Why It Matters
