@@ -12,6 +12,12 @@ SwingForm AI 是一个纯开源 sports-AI 项目：把真实训练视频变成�
 训练视频 -> 姿态关键点 -> 动作阶段 -> 可解释指标 -> 反馈
 ```
 
+现在最明确的产品闭环是：
+
+```text
+长训练视频 -> 统计挥杆次数 -> 挑出最好几次 -> 输出高质量短视频 -> 加球轨迹特效
+```
+
 ## 开源示例
 
 第一个 golf 视频已经作为完整示例提交。仓库包含原视频、姿态 JSON、指标 CSV、报告摘要和视觉索引。
@@ -56,6 +62,15 @@ python scripts/analyze_local_golf_video.py \
   --events-json examples/golf_swing_demo_events.json
 ```
 
+从长视频生成 highlight reel：
+
+```bash
+python scripts/build_highlight_reel.py path/to/long_practice_video.mp4 \
+  --session-id range-session-001 \
+  --top-k 3 \
+  --shot-direction right
+```
+
 ## 仓库结构
 
 | 路径 | 用途 |
@@ -64,6 +79,7 @@ python scripts/analyze_local_golf_video.py \
 | `docs/examples/` | 可读的 demo 报告 |
 | `docs/assets/` | README 和报告图片 |
 | `scripts/analyze_local_golf_video.py` | golf 视频分析脚本 |
+| `scripts/build_highlight_reel.py` | 长视频剪辑和球轨迹特效脚本 |
 | `src/swingform_ai/` | 姿态 schema、几何计算、运动 profile 和 CLI |
 | `tests/` | 单元测试 |
 
@@ -86,9 +102,11 @@ python scripts/analyze_local_golf_video.py \
 
 具体技术路径见 [docs/technical_tracks.md](docs/technical_tracks.md)。
 
+长视频到短视频的具体工作流见 [docs/highlight_reel_pipeline.md](docs/highlight_reel_pipeline.md)。
+
 ## 下一步
 
-1. 先把视觉报告做得更酷、更像可以分享的 practice journal。
+1. 先把长视频变成 scored highlight reel。
 2. 先做 ball trajectory 和漂亮的 trail overlay。
 3. 做 pseudo-3D skeleton review。
 4. 再加 golf club tracking 和 basketball shooting profile。

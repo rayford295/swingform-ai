@@ -38,7 +38,16 @@ Goal: make the first signature visual around the ball path.
 3. Fit a smooth trajectory curve and export `ball_trajectory.json`.
 4. Add YOLO or TrackNet-style automatic detection after the visual workflow is clear.
 
-## Milestone 4: 3D-Feeling Motion Review
+## Milestone 4: Long-Video Highlight Reel
+
+Goal: turn a long practice video into a short, shareable output.
+
+1. Count swing-like motion segments in the long video.
+2. Score candidate swings with an inspectable clip-selection standard.
+3. Export the best few swings as short clips.
+4. Combine the best swings into `highlight_reel.mp4` with ball-trail overlay.
+
+## Milestone 5: 3D-Feeling Motion Review
 
 Goal: make the motion review feel premium while staying data-grounded.
 
@@ -47,7 +56,7 @@ Goal: make the motion review feel premium while staying data-grounded.
 3. Add motion trails for hands, club proxy, and ball path.
 4. Prototype an orbitable Three.js viewer.
 
-## Milestone 5: Golf Event Model
+## Milestone 6: Golf Event Model
 
 Goal: replace manual phase labels with a reproducible event model.
 
@@ -56,7 +65,7 @@ Goal: replace manual phase labels with a reproducible event model.
 3. Add confidence and uncertainty to reported phases.
 4. Keep the model optional so the rule-based path still works.
 
-## Milestone 6: Basketball Shot Profile
+## Milestone 7: Basketball Shot Profile
 
 Goal: reuse the core for basketball shooting form.
 
@@ -65,7 +74,7 @@ Goal: reuse the core for basketball shooting form.
 3. Compare new shots against the user's own best session.
 4. Add ball tracking only after the human-pose metrics are stable.
 
-## Milestone 7: Product Prototype
+## Milestone 8: Product Prototype
 
 Goal: make the workflow easier to use while keeping the experience visually strong.
 
@@ -74,7 +83,7 @@ Goal: make the workflow easier to use while keeping the experience visually stro
 3. Add short natural-language feedback grounded in measured frames.
 4. Export clean open examples when a session is cleared for release.
 
-## Milestone 8: Visual Intelligence
+## Milestone 9: Visual Intelligence
 
 Goal: make the project feel impressive without hiding the underlying measurements.
 

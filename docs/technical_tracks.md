@@ -87,11 +87,12 @@ Use OpenAI-style generation for presentation polish, concept videos, or future v
 
 Focus order:
 
-1. Ball trajectory V0-V1.
-2. Pseudo-3D skeleton V0-V1.
-3. Club tracking.
-4. 3D trajectory and mesh recovery.
-5. Polished interactive viewer.
+1. Long-video highlight reel: count swings, rank them, and export the best clips.
+2. Ball trajectory V0-V1.
+3. Pseudo-3D skeleton V0-V1.
+4. Club tracking.
+5. 3D trajectory and mesh recovery.
+6. Polished interactive viewer.
 
 The project should look impressive early, but every impressive visual should map back to an input video, a detection, a pose landmark, or a fitted trajectory.
 

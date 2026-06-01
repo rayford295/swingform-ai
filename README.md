@@ -19,6 +19,12 @@ This is not a paper repository. It is meant to be beautiful, inspectable, practi
 practice video -> pose landmarks -> movement phase -> biomechanical metrics -> feedback
 ```
 
+The next concrete workflow is:
+
+```text
+long practice video -> swing count -> best swings -> short highlight reel -> ball-trail overlay
+```
+
 ## Open Demo
 
 The first golf sample is committed as a full open example. The repo includes the source clip, pose export, metrics, report summary, and visual indexes.
@@ -72,6 +78,15 @@ python scripts/analyze_local_golf_video.py \
   --events-json examples/golf_swing_demo_events.json
 ```
 
+Build a highlight reel from a longer practice video:
+
+```bash
+python scripts/build_highlight_reel.py path/to/long_practice_video.mp4 \
+  --session-id range-session-001 \
+  --top-k 3 \
+  --shot-direction right
+```
+
 Run tests:
 
 ```bash
@@ -89,6 +104,7 @@ SwingForm AI currently measures body kinematics from single-camera pose landmark
 | Golf phases | Address, top, impact or low-point proxy, finish |
 | Metrics | Elbow angle, knee angle, hand height, wrist speed, shoulder-hip proxy, head and hip drift |
 | Reports | Markdown report, JSON summary, CSV metrics, skeleton keyposes, timeline chart |
+| Highlight reel | Long-video swing count, transparent clip score, best-swing export, ball-trail overlay |
 
 Current limits are explicit: it does not yet measure club-head speed, ball speed, spin, launch angle, or carry distance.
 
@@ -109,6 +125,7 @@ See [docs/technical_tracks.md](docs/technical_tracks.md) for the implementation 
 | `docs/examples/` | Human-readable demo reports |
 | `docs/assets/` | README and report visuals |
 | `scripts/analyze_local_golf_video.py` | Golf video analyzer with open demo export |
+| `scripts/build_highlight_reel.py` | Long-video highlight reel builder |
 | `scripts/register_local_session.py` | Local session manifest tool |
 | `src/swingform_ai/` | Pose schema, geometry, profiles, and CLI helpers |
 | `tests/` | Geometry, profile, and local-session tests |
@@ -116,6 +133,7 @@ See [docs/technical_tracks.md](docs/technical_tracks.md) for the implementation 
 | `docs/architecture.md` | Video, pose, phase, metric, and feedback architecture |
 | `docs/roadmap.md` | Milestone plan |
 | `docs/technical_tracks.md` | Ball trajectory and 3D motion review plan |
+| `docs/highlight_reel_pipeline.md` | Long-video input to short-video output workflow |
 
 ## Design Principles
 
@@ -131,7 +149,7 @@ Read the project taste and long-term direction in [docs/north_star.md](docs/nort
 
 Near-term:
 
-1. Improve the visual report so the demo feels more cinematic.
+1. Turn long practice videos into scored highlight reels.
 2. Add ball trajectory tracking and a polished trail overlay.
 3. Add pseudo-3D skeleton review.
 4. Add club tracking and cleaner event detection.
@@ -153,5 +171,6 @@ Contributions should improve usefulness, beauty, reproducibility, or sport cover
 - [Technology and product scan](docs/research_scan_2026-05-31.md)
 - [North Star](docs/north_star.md)
 - [Technical tracks](docs/technical_tracks.md)
+- [Highlight-reel pipeline](docs/highlight_reel_pipeline.md)
 - [Open-source data boundary](docs/data_governance.md)
 - [Personal data program](docs/personal_data_program.md)

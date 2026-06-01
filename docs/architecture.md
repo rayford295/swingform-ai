@@ -15,6 +15,18 @@ Video or JSON
   -> report and visual overlay
 ```
 
+The long-video product workflow adds a parallel highlight layer:
+
+```text
+Long video
+  -> motion timeline
+  -> swing candidates
+  -> clip-selection score
+  -> best clips
+  -> ball trajectory overlay
+  -> highlight reel
+```
+
 ## Core Modules
 
 | Module | Responsibility |
@@ -24,6 +36,7 @@ Video or JSON
 | `profiles.golf` | Golf events, lead/trail side logic, and swing metrics |
 | `profiles.basketball` | Shot phases, shooting side logic, and shot-form metrics |
 | `analyze_pose_json` | Tiny CLI for testing metrics before video backends are added |
+| `highlight` | Long-video swing candidates, transparent scoring, and clip windows |
 
 ## Pose Backend Strategy
 
@@ -63,6 +76,23 @@ video
 
 Golf-specific logic should remain in `profiles/golf.py`.
 
+## Highlight-Reel Pipeline
+
+```text
+long practice video
+  -> frame-difference motion stats
+  -> swing-like segment detection
+  -> transparent clip score
+  -> top-k clip export
+  -> label-based or proxy ball trail
+  -> combined highlight reel
+```
+
+The current scorer is a clip-selection model. It ranks moments that are clear,
+complete, stable, and worth saving from a long practice session. It should not
+be described as a technical golf-quality score until ball, club, and pose-aware
+event models are added.
+
 ## Basketball Pipeline
 
 ```text
@@ -82,4 +112,3 @@ Basketball-specific logic should remain in `profiles/basketball.py`.
 2. Metric scorer: learn which metric deviations matter for the user's own outcomes.
 3. Retrieval layer: compare a new session against previous personal sessions.
 4. Feedback layer: translate metrics into short coaching notes with citations to the measured frames.
-
