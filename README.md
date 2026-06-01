@@ -9,7 +9,32 @@
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f6f4e"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.10%2B-2458a6">
   <img alt="Sports" src="https://img.shields.io/badge/sports-golf%20%2B%20basketball-c46a2c">
+  <a href="https://rayford295.github.io/#swingform-ai"><img alt="Website" src="https://img.shields.io/badge/demo-website-1d6fa5"></a>
+  <a href="docs/viewer/pose3d.html"><img alt="3D Viewer" src="https://img.shields.io/badge/3D-pose%20viewer-7c3aed"></a>
 </p>
+
+## Live Demo
+
+<table>
+<tr>
+<td width="50%" align="center">
+<b>📹 Skeleton + Ball Trail Overlay</b><br><br>
+<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf_effects.mp4" controls width="100%"></video>
+<br><sub>Depth-aware skeleton coloring · Real ball detection via optical flow + RANSAC</sub>
+</td>
+<td width="50%" align="center">
+<b>🦴 Skeleton Keyposes · 2 Swings</b><br><br>
+<img src="docs/assets/yifan-golf-0520/skeleton_keyposes.png" width="100%">
+<br><sub>Address → Top → Impact → Finish per detected swing cycle</sub>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<b>📊 Metric Timeline — Hand Height · Lead Arm Angle · Shoulder-Hip Separation · Wrist Speed</b><br><br>
+<img src="docs/assets/yifan-golf-0520/metric_timeline.png" width="90%">
+</td>
+</tr>
+</table>
 
 SwingForm AI is an open-source sports-AI toolkit for turning real practice video into pose landmarks, swing phases, and explainable posture metrics. Golf is the first profile. Basketball shot form is built into the architecture as the next sport profile.
 
