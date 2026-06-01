@@ -3,9 +3,6 @@
 from __future__ import annotations
 
 from math import acos, atan2, degrees, sqrt
-from typing import Sequence
-
-Point = Sequence[float]
 
 
 def _xyz(point: object) -> tuple[float, float, float]:
@@ -13,7 +10,12 @@ def _xyz(point: object) -> tuple[float, float, float]:
         z_value = getattr(point, "z", 0.0)
         return (float(getattr(point, "x")), float(getattr(point, "y")), float(z_value or 0.0))
 
-    values = list(point)  # type: ignore[arg-type]
+    try:
+        values = list(point)  # type: ignore[arg-type]
+    except TypeError:
+        raise TypeError(
+            f"Point must have x/y attributes or be iterable, got {type(point).__name__}."
+        ) from None
     if len(values) < 2:
         raise ValueError("A point needs at least x and y coordinates.")
     z_value = values[2] if len(values) > 2 else 0.0

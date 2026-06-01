@@ -194,6 +194,7 @@ def score_swing_candidates(candidates: list[SwingCandidate]) -> list[SwingScore]
     scored: list[SwingScore] = []
     for candidate in candidates:
         motion_energy = 30.0 * min(1.0, candidate.peak_motion / peak_ref)
+        # 3.2s is a typical full golf swing duration (address to finish); adjust per sport.
         tempo_window = 20.0 * max(0.0, 1.0 - abs(candidate.duration_s - 3.2) / 3.2)
         setup_finish = 20.0 * (candidate.pre_stability + candidate.post_stability) / 2.0
         image_quality = 15.0 * (
