@@ -22,18 +22,16 @@
 <table>
 <tr>
 <td width="50%" align="center">
-<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf_effects.mp4"
-  poster="docs/assets/yifan-golf-0520/overlay_poster.jpg"
-  controls muted loop width="100%">
-</video>
-<br><sub>⛳ <b>Golf · TopGolf</b> · skeleton overlay · ball trail · 2 swings detected</sub>
+<a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0520/golf_effects.mp4">
+<img src="docs/assets/yifan-golf-0520/overlay_poster.jpg" alt="Golf swing skeleton overlay — click to play" width="100%">
+</a>
+<br><sub>⛳ <b>Golf · TopGolf</b> · skeleton overlay · ball trail · 2 swings detected · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0520/golf_effects.mp4">▶ play</a></sub>
 </td>
 <td width="50%" align="center">
-<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-basketball-0601/basketball_overlay.mp4"
-  poster="docs/assets/yifan-basketball-0601/overlay_poster.jpg"
-  controls muted loop width="100%">
-</video>
-<br><sub>🏀 <b>Basketball · Indoor court</b> · skeleton overlay · release detected</sub>
+<a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/basketball_overlay.mp4">
+<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="Basketball skeleton overlay — click to play" width="100%">
+</a>
+<br><sub>🏀 <b>Basketball · Indoor court</b> · skeleton overlay · release detected · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/basketball_overlay.mp4">▶ play</a></sub>
 </td>
 </tr>
 </table>

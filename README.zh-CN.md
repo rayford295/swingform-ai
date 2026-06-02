@@ -24,18 +24,16 @@
 <table>
 <tr>
 <td width="50%" align="center">
-<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf_effects.mp4"
-  poster="docs/assets/yifan-golf-0520/overlay_poster.jpg"
-  controls muted loop width="100%">
-</video>
-<br><sub>⛳ <b>高尔夫 · TopGolf</b> · 骨架叠加 · 球轨迹 · 检测到 2 次挥杆</sub>
+<a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0520/golf_effects.mp4">
+<img src="docs/assets/yifan-golf-0520/overlay_poster.jpg" alt="高尔夫骨架叠加 — 点击播放" width="100%">
+</a>
+<br><sub>⛳ <b>高尔夫 · TopGolf</b> · 骨架叠加 · 球轨迹 · 2 次挥杆 · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0520/golf_effects.mp4">▶ 播放</a></sub>
 </td>
 <td width="50%" align="center">
-<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-basketball-0601/basketball_overlay.mp4"
-  poster="docs/assets/yifan-basketball-0601/overlay_poster.jpg"
-  controls muted loop width="100%">
-</video>
-<br><sub>🏀 <b>篮球 · 室内球场</b> · 骨架叠加 · 出手帧检测</sub>
+<a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/basketball_overlay.mp4">
+<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="篮球骨架叠加 — 点击播放" width="100%">
+</a>
+<br><sub>🏀 <b>篮球 · 室内球场</b> · 骨架叠加 · 出手检测 · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/basketball_overlay.mp4">▶ 播放</a></sub>
 </td>
 </tr>
 </table>
