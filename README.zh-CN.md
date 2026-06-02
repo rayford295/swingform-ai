@@ -25,9 +25,9 @@
 <tr>
 <td width="50%">
 
-![高尔夫骨架叠加](docs/assets/yifan-golf-0520/demo.gif)
+![高尔夫骨架叠加](docs/assets/yifan-golf-0601/demo.gif)
 
-<p align="center"><sub>⛳ <b>高尔夫 · TopGolf</b> · 骨架叠加 · 球轨迹 · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0520/golf_effects.mp4">完整视频 ↗</a></sub></p>
+<p align="center"><sub>⛳ <b>高尔夫 · TopGolf</b> · 骨架叠加 · 球轨迹 · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0601/golf.mp4">原始视频 ↗</a></sub></p>
 
 </td>
 <td width="50%">
@@ -80,6 +80,7 @@ python -m unittest discover -s tests
 
 | 会话 | 运动 | 视频 | 帧数 | 事件 |
 |---|---|---|---|---|
+| [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ 高尔夫 | 27 s · 720×1280 | 809 / 809 | 3 次挥杆 |
 | [yifan-golf-0520](examples/yifan-golf-0520/) | ⛳ 高尔夫 | 7.2 s · 320×568 | 216 / 216 | 2 次挥杆 |
 | [yifan-basketball-0601](examples/yifan-basketball-0601/) | 🏀 篮球 | 8.1 s · 720×1280 | 244 / 244 | 1 次出手 |
 | [golf-swing-demo](examples/golf-swing-demo/) | ⛳ 高尔夫 | 14.4 s · 320×568 | 361 / 361 | 2 次挥杆 |

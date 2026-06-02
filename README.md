@@ -23,9 +23,9 @@
 <tr>
 <td width="50%">
 
-![Golf swing skeleton overlay](docs/assets/yifan-golf-0520/demo.gif)
+![Golf swing skeleton overlay](docs/assets/yifan-golf-0601/demo.gif)
 
-<p align="center"><sub>⛳ <b>Golf · TopGolf</b> · skeleton overlay · ball trail · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0520/golf_effects.mp4">full video ↗</a></sub></p>
+<p align="center"><sub>⛳ <b>Golf · TopGolf</b> · skeleton overlay · ball trail · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0601/golf.mp4">source video ↗</a></sub></p>
 
 </td>
 <td width="50%">
@@ -78,6 +78,7 @@ Ball tracking uses optical flow + body-exclusion mask + RANSAC parabolic fit. It
 
 | Session | Sport | Clip | Frames | Events |
 |---|---|---|---|---|
+| [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ Golf | 27 s · 720×1280 | 809 / 809 | 3 swings |
 | [yifan-golf-0520](examples/yifan-golf-0520/) | ⛳ Golf | 7.2 s · 320×568 | 216 / 216 | 2 swings |
 | [yifan-basketball-0601](examples/yifan-basketball-0601/) | 🏀 Basketball | 8.1 s · 720×1280 | 244 / 244 | 1 release |
 | [golf-swing-demo](examples/golf-swing-demo/) | ⛳ Golf | 14.4 s · 320×568 | 361 / 361 | 2 swings |
