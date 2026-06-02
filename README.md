@@ -15,9 +15,20 @@
 
 ---
 
-[![Demo — click to open the live site](docs/assets/yifan-golf-0520/skeleton_keyposes.png)](https://rayford295.github.io/swingform-ai/)
+<table>
+<tr>
+<td width="55%" align="center">
+<img src="docs/assets/yifan-golf-0520/skeleton_keyposes.png" alt="Golf swing skeleton keyposes">
+<br><sub>⛳ <b>Golf</b> · 2 swings auto-detected · Address → Top → Impact → Finish</sub>
+</td>
+<td width="45%" align="center">
+<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="Basketball skeleton overlay">
+<br><sub>🏀 <b>Basketball</b> · Skeleton overlay on real video · Shot 1 Release</sub>
+</td>
+</tr>
+</table>
 
-<p align="center"><sub>Golf · 2 swing cycles detected · click to see the full effects video and 3D skeleton viewer</sub></p>
+<p align="center"><sub><a href="https://rayford295.github.io/swingform-ai/">Open the live site</a> for the full effects video and interactive 3D skeleton viewer</sub></p>
 
 ---
 

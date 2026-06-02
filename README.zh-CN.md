@@ -15,9 +15,20 @@
 
 ---
 
-[![Demo — 点击打开网站](docs/assets/yifan-golf-0520/skeleton_keyposes.png)](https://rayford295.github.io/swingform-ai/)
+<table>
+<tr>
+<td width="55%" align="center">
+<img src="docs/assets/yifan-golf-0520/skeleton_keyposes.png" alt="高尔夫挥杆骨架关键位">
+<br><sub>⛳ <b>高尔夫</b> · 2 次挥杆自动检测 · 站位 → 顶部 → 击球 → 收杆</sub>
+</td>
+<td width="45%" align="center">
+<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="篮球骨架叠加视频">
+<br><sub>🏀 <b>篮球</b> · 真实视频骨架叠加 · 第 1 次出手释放帧</sub>
+</td>
+</tr>
+</table>
 
-<p align="center"><sub>高尔夫 · 自动检测 2 次挥杆 · 点击查看特效视频和 3D 骨架查看器</sub></p>
+<p align="center"><sub><a href="https://rayford295.github.io/swingform-ai/">打开网站</a>查看完整特效视频和可交互 3D 骨架查看器</sub></p>
 
 ---
 
