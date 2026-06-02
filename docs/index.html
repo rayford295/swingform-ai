@@ -397,7 +397,7 @@ footer{
       AI
     </h1>
     <p class="hero-desc">
-      Turn real practice video into pose landmarks, swing phases,
+      Turn real practice video into pose landmarks, sport-specific phases,
       and explainable posture metrics — from a single phone clip.
     </p>
     <div class="hero-pipeline">
@@ -413,11 +413,11 @@ footer{
     </div>
     <div class="status-band" aria-label="Project status">
       <div class="status-item">
-        <div class="status-value">2</div>
+        <div class="status-value">3</div>
         <div class="status-label">Open sessions</div>
       </div>
       <div class="status-item">
-        <div class="status-value">577</div>
+        <div class="status-value">821</div>
         <div class="status-label">Pose frames</div>
       </div>
       <div class="status-item">
@@ -442,7 +442,7 @@ footer{
   <div class="section-label">Live Results</div>
   <h2 class="section-title">From Phone Video to Full Analysis</h2>
   <p class="section-sub">
-    One command turns a phone clip into pose overlays, swing phases, ball-trail review aids, and metric exports.
+    One command turns a phone clip into pose overlays, sport-specific motion phases, review aids, and metric exports.
   </p>
 
   <div class="demo-grid">
@@ -509,13 +509,13 @@ footer{
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-name">Phases</div>
-      <div class="step-desc">Address → Top → Impact → Finish · wrist-path heuristics</div>
+      <div class="step-name">Profiles</div>
+      <div class="step-desc">Golf address/top/impact/finish · Basketball set/dip/release proxy</div>
     </div>
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-name">Metrics</div>
-      <div class="step-desc">Elbow · knee · shoulder-hip · head drift · wrist speed</div>
+      <div class="step-desc">Elbow · knee · wrist height · shoulder-hip · body speed · drift proxies</div>
     </div>
     <div class="step">
       <div class="step-num">5</div>
@@ -543,6 +543,20 @@ footer{
           <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0520/pose_sequence.json" class="ex-file-link" target="_blank">pose.json</a>
           <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-golf-0520/metrics.csv" class="ex-file-link" target="_blank">metrics.csv</a>
           <a href="https://github.com/rayford295/swingform-ai/blob/main/docs/examples/yifan-golf-0520.md" class="ex-file-link" target="_blank">report.md</a>
+        </div>
+      </div>
+    </div>
+    <div class="ex-card">
+      <img src="assets/yifan-basketball-0601/overlay_poster.jpg" alt="Yifan Basketball 06.01">
+      <div class="ex-card-body">
+        <div class="ex-tag">BASKETBALL · 568×320 · 30fps</div>
+        <div class="ex-card-title">Yifan Basketball 06.01 — Simple release-proxy clip</div>
+        <div class="ex-card-meta">8.13s · 244 / 244 pose frames · 1 release-proxy event</div>
+        <div class="ex-files">
+          <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/basketball.mp4" class="ex-file-link" target="_blank">basketball.mp4</a>
+          <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/basketball_overlay.mp4" class="ex-file-link" target="_blank">overlay.mp4</a>
+          <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/pose_sequence.json" class="ex-file-link" target="_blank">pose.json</a>
+          <a href="https://github.com/rayford295/swingform-ai/blob/main/docs/examples/yifan-basketball-0601.md" class="ex-file-link" target="_blank">report.md</a>
         </div>
       </div>
     </div>
@@ -579,7 +593,13 @@ footer{
     &nbsp;&nbsp;<span class="flag">--session-id</span> <span class="cmd">my-session</span> <span class="flag">--handedness</span> <span class="cmd">right</span>
   </div>
   <div class="code-block">
-    <span class="comment"># 3. Render skeleton + ball trail video (one command)</span><br>
+    <span class="comment"># 3. Analyze a basketball clip (pose + metrics + overlay)</span><br>
+    <span class="cmd">python scripts/analyze_local_basketball_video.py <span class="flag">your_video.mp4</span> \</span><br>
+    &nbsp;&nbsp;<span class="flag">--session-id</span> <span class="cmd">my-basketball-session</span> <span class="flag">--shooting-side</span> <span class="cmd">right</span> \<br>
+    &nbsp;&nbsp;<span class="flag">--copy-video</span> <span class="flag">--render-overlay</span>
+  </div>
+  <div class="code-block">
+    <span class="comment"># 4. Render golf skeleton + ball trail video (one command)</span><br>
     <span class="cmd">python scripts/golf_render.py <span class="flag">your_video.mp4</span> \</span><br>
     &nbsp;&nbsp;<span class="flag">--output</span> <span class="cmd">output_effects.mp4</span>
   </div>

@@ -32,6 +32,20 @@ python scripts/register_local_session.py /path/to/golf.mp4 --sport golf
 
 The command writes a manifest under `data/local/sessions/`, which is ignored by git until the session is promoted into an open example.
 
+Analyze promoted examples with sport-specific scripts:
+
+```bash
+python scripts/analyze_local_golf_video.py /path/to/golf.mp4 \
+  --session-id yifan-golf-0520 \
+  --handedness right
+
+python scripts/analyze_local_basketball_video.py /path/to/basketball.mp4 \
+  --session-id yifan-basketball-0601 \
+  --shooting-side right \
+  --copy-video \
+  --render-overlay
+```
+
 ## Longitudinal Metrics
 
 Track metrics that can improve through practice:
@@ -79,7 +93,7 @@ The repo should not publish:
 ## Near-Term Plan
 
 1. Register the first golf video as a local session.
-2. Add MediaPipe pose extraction when the runtime supports it.
-3. Generate the first golf swing pose JSON and metrics report.
-4. Build a small personal session index.
-5. Add basketball after the golf loop can run end to end.
+2. Keep golf and basketball as separate sport profiles under the same pose schema.
+3. Build a small personal session index across sports.
+4. Add multi-person basketball tracking so the system can choose the shooter instead of the largest visible player.
+5. Add ball/rim association before claiming release timing, make/miss, or shot arc.

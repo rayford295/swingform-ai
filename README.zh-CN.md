@@ -4,7 +4,7 @@
   <img src="docs/assets/readme/hero.png" alt="SwingForm AI golf swing analysis hero" width="980">
 </p>
 
-SwingForm AI 是一个纯开源 sports-AI 项目：把真实训练视频变成姿态关键点、动作阶段和可解释的姿势指标。第一阶段做 golf swing，架构上预留 basketball shooting form。
+SwingForm AI 是一个纯开源 sports-AI 项目：把真实训练视频变成姿态关键点、动作阶段和可解释的姿势指标。Golf 和 basketball 分成两个运动 profile，但共享同一个姿态分析核心。
 
 这不是论文仓库，而是一个要好看、好用、可复现、能长期成长的开源项目。
 
@@ -20,21 +20,21 @@ SwingForm AI 是一个纯开源 sports-AI 项目：把真实训练视频变成�
 
 ## 开源示例
 
-第一个 golf 视频已经作为完整示例提交。仓库包含原视频、姿态 JSON、指标 CSV、报告摘要和视觉索引。
+现在仓库里有 golf 和 basketball 两类个人运动示例。每个示例都包含原视频、姿态 JSON、指标 CSV、报告摘要和视觉索引。
 
-| 指标 | 数值 |
-| --- | ---: |
-| 视频长度 | 14.44s |
-| 分辨率 | 320x568 |
-| 姿态覆盖 | 361 / 361 frames |
-| 挥杆片段 | 2 |
-| 平均 landmark visibility | 0.805 |
+| 示例 | 运动 | 姿态覆盖 | 事件 | 报告 |
+| --- | --- | ---: | --- | --- |
+| `yifan-golf-0520` | golf | 216 / 216 frames | 2 swings | [报告](docs/examples/yifan-golf-0520.md) |
+| `yifan-basketball-0601` | basketball | 244 / 244 frames | 1 release-proxy event | [报告](docs/examples/yifan-basketball-0601.md) |
+| `golf-swing-demo` | golf | 361 / 361 frames | 2 swings | [报告](docs/examples/golf_swing_demo_2026-05-31.md) |
 
 ![Golf swing metric timeline](docs/assets/golf-swing-demo/metric_timeline.png)
 
 ![Golf swing skeleton keyposes](docs/assets/golf-swing-demo/skeleton_keyposes.png)
 
-完整报告见 [docs/examples/golf_swing_demo_2026-05-31.md](docs/examples/golf_swing_demo_2026-05-31.md)。
+![Basketball motion timeline](docs/assets/yifan-basketball-0601/metric_timeline.png)
+
+Basketball 目前已经能做身体动作记录和 pose-based release proxy，但还不声称能测出命中结果、真实出手角度、球路或篮筐交互。
 
 ## 快速开始
 
@@ -62,6 +62,17 @@ python scripts/analyze_local_golf_video.py \
   --events-json examples/golf_swing_demo_events.json
 ```
 
+复现 basketball 示例：
+
+```bash
+python scripts/analyze_local_basketball_video.py \
+  examples/yifan-basketball-0601/basketball.mp4 \
+  --session-id yifan-basketball-0601 \
+  --shooting-side right \
+  --copy-video \
+  --render-overlay
+```
+
 从长视频生成 highlight reel：
 
 ```bash
@@ -76,9 +87,12 @@ python scripts/build_highlight_reel.py path/to/long_practice_video.mp4 \
 | 路径 | 用途 |
 | --- | --- |
 | `examples/golf-swing-demo/` | 开源原视频、姿态导出、指标和报告输入 |
+| `examples/yifan-golf-0520/` | Yifan golf 个人练习示例 |
+| `examples/yifan-basketball-0601/` | Yifan basketball 个人动作记录示例 |
 | `docs/examples/` | 可读的 demo 报告 |
 | `docs/assets/` | README 和报告图片 |
 | `scripts/analyze_local_golf_video.py` | golf 视频分析脚本 |
+| `scripts/analyze_local_basketball_video.py` | basketball 视频分析脚本 |
 | `scripts/build_highlight_reel.py` | 长视频剪辑和球轨迹特效脚本 |
 | `src/swingform_ai/` | 姿态 schema、几何计算、运动 profile 和 CLI |
 | `tests/` | 单元测试 |
@@ -109,4 +123,5 @@ python scripts/build_highlight_reel.py path/to/long_practice_video.mp4 \
 1. 先把长视频变成 scored highlight reel。
 2. 先做 ball trajectory 和漂亮的 trail overlay。
 3. 做 pseudo-3D skeleton review。
-4. 再加 golf club tracking 和 basketball shooting profile。
+4. 给 basketball 加 multi-person tracking，先稳定选中投篮者。
+5. 再加 golf club tracking、basketball ball/rim association 和更可靠的模型训练数据。

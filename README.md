@@ -15,7 +15,7 @@
 
 ![SwingForm AI hero](docs/assets/readme/hero.png)
 
-Open-source sports posture intelligence for turning real practice video into pose landmarks, swing phases, visual overlays, and explainable motion metrics. Golf is the first polished profile; basketball is the next sport profile in the architecture.
+Open-source sports posture intelligence for turning real practice video into pose landmarks, sport-specific phases, visual overlays, and explainable motion metrics. Golf and basketball live as separate profiles inside one shared posture-analysis core.
 
 ```
 video -> pose landmarks -> swing phases -> metrics -> review-ready output
@@ -27,8 +27,10 @@ video -> pose landmarks -> swing phases -> metrics -> review-ready output
 | --- | --- |
 | Website | [rayford295.github.io/swingform-ai](https://rayford295.github.io/swingform-ai/) |
 | 3D pose viewer | [Interactive skeleton viewer](https://rayford295.github.io/swingform-ai/viewer/pose3d.html) |
-| Effects video | [examples/yifan-golf-0520/golf_effects.mp4](examples/yifan-golf-0520/golf_effects.mp4) |
-| Full report | [docs/examples/yifan-golf-0520.md](docs/examples/yifan-golf-0520.md) |
+| Golf effects video | [examples/yifan-golf-0520/golf_effects.mp4](examples/yifan-golf-0520/golf_effects.mp4) |
+| Basketball overlay video | [examples/yifan-basketball-0601/basketball_overlay.mp4](examples/yifan-basketball-0601/basketball_overlay.mp4) |
+| Golf report | [docs/examples/yifan-golf-0520.md](docs/examples/yifan-golf-0520.md) |
+| Basketball report | [docs/examples/yifan-basketball-0601.md](docs/examples/yifan-basketball-0601.md) |
 
 ## What It Produces
 
@@ -37,10 +39,13 @@ video -> pose landmarks -> swing phases -> metrics -> review-ready output
 | Video QA | Duration, FPS, resolution, frame coverage |
 | Pose | MediaPipe Pose Landmarker, 33 body landmarks |
 | Golf phases | Address, top, impact proxy, finish |
+| Basketball profile | Set, dip, lift, release proxy, follow-through, landing |
 | Metrics | Elbow angle, knee angle, hand height, wrist speed, shoulder-hip separation, head and hip drift |
 | Visuals | Skeleton overlay, ball-trail aid, keypose sheet, metric timeline, 3D viewer |
 
 The ball trail is currently a visual review aid. It is not yet a measured ball-flight model, and the project does not estimate club-head speed, ball speed, spin, launch angle, or carry distance.
+
+Basketball now supports a pose-based release-proxy demo. It does not yet estimate make/miss, shot arc, ball-rim contact, or measured release angle.
 
 ## Quickstart
 
@@ -58,6 +63,13 @@ python scripts/golf_render.py your_video.mp4 --output effects.mp4
 python scripts/analyze_local_golf_video.py your_video.mp4 \
   --session-id my-session \
   --handedness right
+
+# Export basketball pose, metrics, charts, report assets, and overlay video
+python scripts/analyze_local_basketball_video.py your_video.mp4 \
+  --session-id my-basketball-session \
+  --shooting-side right \
+  --copy-video \
+  --render-overlay
 ```
 
 Run tests:
@@ -68,9 +80,10 @@ python -m unittest discover -s tests
 
 ## Open Examples
 
-| Session | Source Clip | Frames | Swings | Artifacts |
+| Session | Source Clip | Frames | Events | Artifacts |
 | --- | --- | --- | --- | --- |
 | `yifan-golf-0520` | [golf.mp4](examples/yifan-golf-0520/golf.mp4) | 216 / 216 | 2 | [pose](examples/yifan-golf-0520/pose_sequence.json) · [metrics](examples/yifan-golf-0520/metrics.csv) · [report](docs/examples/yifan-golf-0520.md) |
+| `yifan-basketball-0601` | [basketball.mp4](examples/yifan-basketball-0601/basketball.mp4) | 244 / 244 | 1 release-proxy event | [overlay](examples/yifan-basketball-0601/basketball_overlay.mp4) · [pose](examples/yifan-basketball-0601/pose_sequence.json) · [metrics](examples/yifan-basketball-0601/metrics.csv) · [report](docs/examples/yifan-basketball-0601.md) |
 | `golf-swing-demo` | [golf.mp4](examples/golf-swing-demo/golf.mp4) | 361 / 361 | 2 | [pose](examples/golf-swing-demo/pose_sequence.json) · [metrics](examples/golf-swing-demo/metrics.csv) · [report](docs/examples/golf_swing_demo_2026-05-31.md) |
 
 ## Project Map
@@ -79,6 +92,7 @@ python -m unittest discover -s tests
 scripts/
   golf_render.py              one-command video -> effects video pipeline
   analyze_local_golf_video.py analysis export for pose, metrics, charts, reports
+  analyze_local_basketball_video.py basketball export for pose, metrics, charts, overlay
   build_highlight_reel.py     long-video swing scoring and clip export
 
 src/swingform_ai/
@@ -96,7 +110,7 @@ docs/
 
 ## Direction
 
-SwingForm AI should look useful early while staying honest about what it measures. The near-term focus is polished examples, clean visual review, and reproducible artifacts. The next technical step is a labeled ball-tracking benchmark before claiming measured ball flight.
+SwingForm AI should look useful early while staying honest about what it measures. The near-term focus is polished multi-sport examples, clean visual review, and reproducible artifacts. The next technical steps are a labeled golf ball-tracking benchmark and a basketball multi-person shooter-selection loop before claiming measured ball flight or shot outcome.
 
 ---
 
