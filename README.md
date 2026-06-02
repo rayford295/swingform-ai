@@ -55,6 +55,7 @@ python -m unittest discover -s tests
 | Video QA | Duration, FPS, resolution, frame coverage |
 | Pose | MediaPipe Pose Landmarker — 33 landmarks, image + world (3D metric) coordinates |
 | Golf phases | Address, top, impact proxy, finish — auto-detected from wrist path |
+| Basketball phases | Set, dip, lift, release proxy, follow-through, landing |
 | Metrics | Elbow angle, knee angle, hand height, wrist speed, shoulder-hip separation, head and hip drift |
 | Ball tracking | Optical flow + body-exclusion mask + RANSAC parabolic fit |
 | Output | Effects video, CSV metrics, JSON summary, 3D viewer, Markdown report |
@@ -63,20 +64,22 @@ Current limits: no club-head speed, ball speed, spin, launch angle, or carry dis
 
 ## Open Examples
 
-Two sessions are fully committed — source clip, pose export, per-frame metrics, and visual output.
+Three sessions are fully committed — source clip, pose export, per-frame metrics, and visual output.
 
-| Session | Video | Frames | Swings | Report |
-| --- | --- | --- | --- | --- |
-| [golf-swing-demo](examples/golf-swing-demo/) | 14.4s · 320×568 | 361 / 361 | 2 | [report](docs/examples/golf_swing_demo_2026-05-31.md) |
-| [yifan-golf-0520](examples/yifan-golf-0520/) | 7.2s · 320×568 | 216 / 216 | 2 | [report](docs/examples/yifan-golf-0520.md) |
+| Session | Sport | Video | Frames | Events | Report |
+| --- | --- | --- | --- | --- | --- |
+| [golf-swing-demo](examples/golf-swing-demo/) | Golf | 14.4s · 320×568 | 361 / 361 | 2 swings | [report](docs/examples/golf_swing_demo_2026-05-31.md) |
+| [yifan-golf-0520](examples/yifan-golf-0520/) | Golf | 7.2s · 320×568 | 216 / 216 | 2 swings | [report](docs/examples/yifan-golf-0520.md) |
+| [yifan-basketball-0601](examples/yifan-basketball-0601/) | Basketball | 8.1s · 720×1280 | 244 / 244 | 1 release | [report](docs/examples/yifan-basketball-0601.md) |
 
 ## Project Map
 
 ```
 scripts/
-  golf_render.py              ← one-command pipeline: video → effects video
-  analyze_local_golf_video.py ← full analysis with charts and reports
-  build_highlight_reel.py     ← score and clip best swings from long videos
+  golf_render.py                   ← one-command pipeline: video → effects video
+  analyze_local_golf_video.py      ← full golf analysis with charts and reports
+  analyze_local_basketball_video.py← basketball pose, metrics, overlay video
+  build_highlight_reel.py          ← score and clip best swings from long videos
 
 src/swingform_ai/
   schema.py                   ← Landmark, FramePose, PoseSequence dataclasses

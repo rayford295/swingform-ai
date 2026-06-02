@@ -63,12 +63,13 @@ python -m unittest discover -s tests
 
 ## 开源示例
 
-两个完整会话已提交至仓库，包含原始视频、姿态导出、逐帧指标和可视化输出。
+三个完整会话已提交至仓库，包含原始视频、姿态导出、逐帧指标和可视化输出。
 
-| 会话 | 视频信息 | 帧数 | 挥杆次数 | 报告 |
-| --- | --- | --- | --- | --- |
-| [golf-swing-demo](examples/golf-swing-demo/) | 14.4s · 320×568 | 361 / 361 | 2 | [报告](docs/examples/golf_swing_demo_2026-05-31.md) |
-| [yifan-golf-0520](examples/yifan-golf-0520/) | 7.2s · 320×568 | 216 / 216 | 2 | [报告](docs/examples/yifan-golf-0520.md) |
+| 会话 | 运动 | 视频信息 | 帧数 | 事件 | 报告 |
+| --- | --- | --- | --- | --- | --- |
+| [golf-swing-demo](examples/golf-swing-demo/) | 高尔夫 | 14.4s · 320×568 | 361 / 361 | 2 次挥杆 | [报告](docs/examples/golf_swing_demo_2026-05-31.md) |
+| [yifan-golf-0520](examples/yifan-golf-0520/) | 高尔夫 | 7.2s · 320×568 | 216 / 216 | 2 次挥杆 | [报告](docs/examples/yifan-golf-0520.md) |
+| [yifan-basketball-0601](examples/yifan-basketball-0601/) | 篮球 | 8.1s · 720×1280 | 244 / 244 | 1 次出手 | [报告](docs/examples/yifan-basketball-0601.md) |
 
 ## 仓库结构
 
@@ -92,7 +93,8 @@ docs/
 
 examples/
   golf-swing-demo/            ← 原始开源演示会话
-  yifan-golf-0520/            ← 个人会话（含特效视频）
+  yifan-golf-0520/            ← 高尔夫个人会话（含特效视频）
+  yifan-basketball-0601/      ← 篮球个人会话（含叠加视频）
 ```
 
 ## 参与贡献
