@@ -9,7 +9,7 @@
   <a href="https://rayford295.github.io/swingform-ai/viewer/pose3d.html"><img alt="3D Viewer" src="https://img.shields.io/badge/3D-pose%20viewer-7c3aed"></a>
 </p>
 
-Open-source sports-AI toolkit for turning real practice video into pose landmarks, swing phases, and explainable posture metrics. Golf is the first profile; basketball is built into the architecture as the next.
+Open-source sports-AI toolkit that turns real practice video into pose landmarks, swing phases, and explainable posture metrics. Golf is the first sport profile; basketball is built into the architecture as the next.
 
 ```
 video → pose landmarks → swing phases → biomechanical metrics → feedback
@@ -17,42 +17,27 @@ video → pose landmarks → swing phases → biomechanical metrics → feedback
 
 ## Demo
 
-<table>
-<tr>
-<td width="50%">
+[![Watch the skeleton + ball-trail demo](docs/assets/yifan-golf-0520/skeleton_keyposes.png)](https://rayford295.github.io/swingform-ai/)
 
-**Skeleton + ball-trail overlay**
-
-<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf_effects.mp4" controls width="100%"></video>
-
-Depth-aware skeleton coloring · ball detection via optical flow + RANSAC
-
-</td>
-<td width="50%">
-
-**Skeleton keyposes — 2 swing cycles**
-
-![Skeleton keyposes](docs/assets/yifan-golf-0520/skeleton_keyposes.png)
-
-Address → Top → Impact proxy → Finish, auto-detected from wrist trajectory
-
-</td>
-</tr>
-</table>
+*Click the image to open the live website — includes the skeleton + ball-trail overlay video and interactive 3D pose viewer.*
 
 ![Metric timeline](docs/assets/yifan-golf-0520/metric_timeline.png)
+
+*Per-frame metrics across the session: hand height · lead arm angle · shoulder-hip separation · wrist speed*
 
 ## Quickstart
 
 ```bash
-# Install (core only — no heavy dependencies)
+# Install core (no heavy dependencies)
 pip install -e .
 
-# Full pipeline: pose + swing detection + ball trail + effects video
+# Install video analysis extras
 pip install -e ".[pose]"
+
+# One command: pose extraction + swing detection + ball trail + effects video
 python scripts/golf_render.py your_video.mp4 --output effects.mp4
 
-# Detailed analysis: metrics CSV, summary JSON, charts
+# Full analysis: metrics CSV, JSON summary, skeleton chart, timeline chart
 python scripts/analyze_local_golf_video.py your_video.mp4 \
   --session-id my-session --handedness right
 ```
@@ -68,13 +53,13 @@ python -m unittest discover -s tests
 | Layer | Capability |
 | --- | --- |
 | Video QA | Duration, FPS, resolution, frame coverage |
-| Pose | MediaPipe Pose Landmarker — 33 landmarks, image + world (3D metric) coords |
+| Pose | MediaPipe Pose Landmarker — 33 landmarks, image + world (3D metric) coordinates |
 | Golf phases | Address, top, impact proxy, finish — auto-detected from wrist path |
 | Metrics | Elbow angle, knee angle, hand height, wrist speed, shoulder-hip separation, head and hip drift |
 | Ball tracking | Optical flow + body-exclusion mask + RANSAC parabolic fit |
-| Output | CSV metrics, JSON summary, skeleton video, 3D viewer, Markdown report |
+| Output | Effects video, CSV metrics, JSON summary, 3D viewer, Markdown report |
 
-Current limits: no club-head speed, ball speed, spin, launch angle, or carry distance. See [docs/technical_tracks.md](docs/technical_tracks.md) for the roadmap on ball trajectory and 3D motion review.
+Current limits: no club-head speed, ball speed, spin, launch angle, or carry distance. See [docs/technical_tracks.md](docs/technical_tracks.md) for the ball trajectory and 3D motion roadmap.
 
 ## Open Examples
 
@@ -96,7 +81,7 @@ scripts/
 src/swingform_ai/
   schema.py                   ← Landmark, FramePose, PoseSequence dataclasses
   geometry.py                 ← angle, distance, midpoint helpers
-  profiles/golf.py            ← golf swing metrics
+  profiles/golf.py            ← golf swing metrics and phase detection
   profiles/basketball.py      ← basketball shot metrics
 
 docs/

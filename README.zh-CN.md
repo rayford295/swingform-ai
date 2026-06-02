@@ -1,112 +1,104 @@
 # SwingForm AI
 
 <p align="center">
-  <img src="docs/assets/readme/hero.png" alt="SwingForm AI golf swing analysis hero" width="980">
+  <a href="https://github.com/rayford295/swingform-ai/actions/workflows/test.yml"><img alt="Tests" src="https://github.com/rayford295/swingform-ai/actions/workflows/test.yml/badge.svg"></a>
+  <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f6f4e"></a>
+  <img alt="Python" src="https://img.shields.io/badge/python-3.10%2B-2458a6">
+  <img alt="Sports" src="https://img.shields.io/badge/sports-golf%20%2B%20basketball-c46a2c">
+  <a href="https://rayford295.github.io/swingform-ai/"><img alt="Website" src="https://img.shields.io/badge/website-live-1d6fa5"></a>
+  <a href="https://rayford295.github.io/swingform-ai/viewer/pose3d.html"><img alt="3D Viewer" src="https://img.shields.io/badge/3D-pose%20viewer-7c3aed"></a>
 </p>
 
-SwingForm AI 是一个纯开源 sports-AI 项目：把真实训练视频变成姿态关键点、动作阶段和可解释的姿势指标。第一阶段做 golf swing，架构上预留 basketball shooting form。
+开源运动 AI 工具包：把真实训练视频变成姿态关键点、动作阶段和可解释的运动指标。第一个运动 profile 是高尔夫挥杆，篮球投篮已在架构中预留接口。
 
-这不是论文仓库，而是一个要好看、好用、可复现、能长期成长的开源项目。
-
-```text
-训练视频 -> 姿态关键点 -> 动作阶段 -> 可解释指标 -> 反馈
+```
+视频 → 姿态关键点 → 动作阶段 → 运动指标 → 分析反馈
 ```
 
-现在最明确的产品闭环是：
+## Demo
 
-```text
-长训练视频 -> 统计挥杆次数 -> 挑出最好几次 -> 输出高质量短视频 -> 加球轨迹特效
-```
+[![点击查看骨架 + 球轨迹特效演示](docs/assets/yifan-golf-0520/skeleton_keyposes.png)](https://rayford295.github.io/swingform-ai/)
 
-## 开源示例
+*点击图片打开项目网站 — 包含骨架叠加特效视频和可交互 3D 骨架查看器*
 
-第一个 golf 视频已经作为完整示例提交。仓库包含原视频、姿态 JSON、指标 CSV、报告摘要和视觉索引。
+![指标时间线](docs/assets/yifan-golf-0520/metric_timeline.png)
 
-| 指标 | 数值 |
-| --- | ---: |
-| 视频长度 | 14.44s |
-| 分辨率 | 320x568 |
-| 姿态覆盖 | 361 / 361 frames |
-| 挥杆片段 | 2 |
-| 平均 landmark visibility | 0.805 |
-
-![Golf swing metric timeline](docs/assets/golf-swing-demo/metric_timeline.png)
-
-![Golf swing skeleton keyposes](docs/assets/golf-swing-demo/skeleton_keyposes.png)
-
-完整报告见 [docs/examples/golf_swing_demo_2026-05-31.md](docs/examples/golf_swing_demo_2026-05-31.md)。
+*逐帧运动指标：手部高度 · 前臂角度 · 肩髋分离角 · 手腕速度*
 
 ## 快速开始
 
-安装：
-
 ```bash
-python -m pip install -e .
+# 安装核心包（无重型依赖）
+pip install -e .
+
+# 安装视频分析扩展
+pip install -e ".[pose]"
+
+# 一条命令完成完整流水线：姿态提取 + 挥杆检测 + 球轨迹 + 特效视频
+python scripts/golf_render.py your_video.mp4 --output effects.mp4
+
+# 完整分析：逐帧指标 CSV、摘要 JSON、骨架图、时间线图
+python scripts/analyze_local_golf_video.py your_video.mp4 \
+  --session-id my-session --handedness right
 ```
 
-运行小型姿态 JSON demo：
+运行测试：
 
 ```bash
-python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport golf
-python -m swingform_ai.analyze_pose_json examples/sample_pose_sequence.json --sport basketball
+python -m unittest discover -s tests
 ```
 
-复现 golf 示例：
+## 能力范围
 
-```bash
-python -m pip install -e ".[pose]"
-python scripts/analyze_local_golf_video.py \
-  examples/golf-swing-demo/golf.mp4 \
-  --session-id golf-swing-demo \
-  --handedness right \
-  --events-json examples/golf_swing_demo_events.json
-```
+| 层次 | 当前能力 |
+| --- | --- |
+| 视频 QA | 时长、帧率、分辨率、帧覆盖率检测 |
+| 姿态估计 | MediaPipe Pose Landmarker — 33 个关键点，图像坐标 + 世界坐标（3D 米制） |
+| 高尔夫阶段 | 站位、顶部、击球代理帧、收杆 — 由手腕轨迹自动检测 |
+| 运动指标 | 肘关节角、膝关节角、手部高度、手腕速度、肩髋分离角、头部和髋部偏移 |
+| 球轨迹追踪 | 光流 + 身体遮罩排除 + RANSAC 抛物线拟合 |
+| 输出 | 特效视频、指标 CSV、摘要 JSON、3D 查看器、Markdown 报告 |
 
-从长视频生成 highlight reel：
+当前限制：不测量杆头速度、球速、旋转、发射角或飞行距离。球轨迹和 3D 动作回顾的技术路线见 [docs/technical_tracks.md](docs/technical_tracks.md)。
 
-```bash
-python scripts/build_highlight_reel.py path/to/long_practice_video.mp4 \
-  --session-id range-session-001 \
-  --top-k 3 \
-  --shot-direction right
-```
+## 开源示例
+
+两个完整会话已提交至仓库，包含原始视频、姿态导出、逐帧指标和可视化输出。
+
+| 会话 | 视频信息 | 帧数 | 挥杆次数 | 报告 |
+| --- | --- | --- | --- | --- |
+| [golf-swing-demo](examples/golf-swing-demo/) | 14.4s · 320×568 | 361 / 361 | 2 | [报告](docs/examples/golf_swing_demo_2026-05-31.md) |
+| [yifan-golf-0520](examples/yifan-golf-0520/) | 7.2s · 320×568 | 216 / 216 | 2 | [报告](docs/examples/yifan-golf-0520.md) |
 
 ## 仓库结构
 
-| 路径 | 用途 |
-| --- | --- |
-| `examples/golf-swing-demo/` | 开源原视频、姿态导出、指标和报告输入 |
-| `docs/examples/` | 可读的 demo 报告 |
-| `docs/assets/` | README 和报告图片 |
-| `scripts/analyze_local_golf_video.py` | golf 视频分析脚本 |
-| `scripts/build_highlight_reel.py` | 长视频剪辑和球轨迹特效脚本 |
-| `src/swingform_ai/` | 姿态 schema、几何计算、运动 profile 和 CLI |
-| `tests/` | 单元测试 |
+```
+scripts/
+  golf_render.py              ← 完整流水线：视频 → 特效视频
+  analyze_local_golf_video.py ← 含图表和报告的完整分析
+  build_highlight_reel.py     ← 长视频挑选最佳挥杆片段
 
-## 项目原则
+src/swingform_ai/
+  schema.py                   ← Landmark、FramePose、PoseSequence 数据模型
+  geometry.py                 ← 角度、距离、中点计算工具
+  profiles/golf.py            ← 高尔夫挥杆指标与阶段检测
+  profiles/basketball.py      ← 篮球投篮指标
 
-1. 美观很重要：README、图表和报告都应该容易扫读。
-2. 实用很重要：每个指标都要能回到具体帧、阶段或姿态。
-3. 开源示例很重要：别人应该能看到输入和输出一起出现。
-4. 运动 profile 要分开：golf 和 basketball 共享 pose core，但保留各自阶段和指标。
-5. 结论要克制：单摄像头姿态估计有价值，但不是 launch monitor，也不是职业教练替代品。
+docs/
+  index.html                  ← 项目网站（GitHub Pages）
+  viewer/pose3d.html          ← 可交互 3D 骨架查看器
+  technical_tracks.md         ← 球轨迹与 3D 动作回顾技术路线
+  architecture.md             ← 流水线架构设计
 
-项目气质和长期方向见 [docs/north_star.md](docs/north_star.md)。
+examples/
+  golf-swing-demo/            ← 原始开源演示会话
+  yifan-golf-0520/            ← 个人会话（含特效视频）
+```
 
-## 技术主线
+## 参与贡献
 
-下一阶段聚焦两个方向：
+欢迎提升可用性、可复现性或运动覆盖范围的贡献。详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-1. 球的轨迹：球检测、轨迹渲染、平滑拟合，后面再做相机几何下的 3D flight。
-2. 3D 视觉：pseudo-3D skeleton、motion trails，后面再接 world-grounded motion reconstruction。
+---
 
-具体技术路径见 [docs/technical_tracks.md](docs/technical_tracks.md)。
-
-长视频到短视频的具体工作流见 [docs/highlight_reel_pipeline.md](docs/highlight_reel_pipeline.md)。
-
-## 下一步
-
-1. 先把长视频变成 scored highlight reel。
-2. 先做 ball trajectory 和漂亮的 trail overlay。
-3. 做 pseudo-3D skeleton review。
-4. 再加 golf club tracking 和 basketball shooting profile。
+[项目网站](https://rayford295.github.io/swingform-ai/) · [3D 查看器](https://rayford295.github.io/swingform-ai/viewer/pose3d.html) · [English](README.md) · MIT License
