@@ -22,12 +22,18 @@
 <table>
 <tr>
 <td width="50%" align="center">
-<img src="docs/assets/yifan-golf-0520/overlay_poster.jpg" alt="Golf swing skeleton overlay — S1 Impact">
-<br><sub>⛳ <b>Golf · S1 Impact</b> · TopGolf · skeleton overlay + ball trail</sub>
+<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf_effects.mp4"
+  poster="docs/assets/yifan-golf-0520/overlay_poster.jpg"
+  controls muted loop width="100%">
+</video>
+<br><sub>⛳ <b>Golf · TopGolf</b> · skeleton overlay · ball trail · 2 swings detected</sub>
 </td>
 <td width="50%" align="center">
-<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="Basketball skeleton overlay — Shot 1 Release">
-<br><sub>🏀 <b>Basketball · Shot 1 Release</b> · indoor court · skeleton overlay</sub>
+<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-basketball-0601/basketball_overlay.mp4"
+  poster="docs/assets/yifan-basketball-0601/overlay_poster.jpg"
+  controls muted loop width="100%">
+</video>
+<br><sub>🏀 <b>Basketball · Indoor court</b> · skeleton overlay · release detected</sub>
 </td>
 </tr>
 </table>

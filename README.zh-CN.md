@@ -24,12 +24,18 @@
 <table>
 <tr>
 <td width="50%" align="center">
-<img src="docs/assets/yifan-golf-0520/overlay_poster.jpg" alt="高尔夫骨架叠加 — 第 1 杆击球瞬间">
-<br><sub>⛳ <b>高尔夫 · S1 击球瞬间</b> · TopGolf · 骨架叠加 + 球轨迹</sub>
+<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf_effects.mp4"
+  poster="docs/assets/yifan-golf-0520/overlay_poster.jpg"
+  controls muted loop width="100%">
+</video>
+<br><sub>⛳ <b>高尔夫 · TopGolf</b> · 骨架叠加 · 球轨迹 · 检测到 2 次挥杆</sub>
 </td>
 <td width="50%" align="center">
-<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="篮球骨架叠加 — 第 1 次出手">
-<br><sub>🏀 <b>篮球 · 第 1 次出手</b> · 室内球场 · 骨架叠加</sub>
+<video src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-basketball-0601/basketball_overlay.mp4"
+  poster="docs/assets/yifan-basketball-0601/overlay_poster.jpg"
+  controls muted loop width="100%">
+</video>
+<br><sub>🏀 <b>篮球 · 室内球场</b> · 骨架叠加 · 出手帧检测</sub>
 </td>
 </tr>
 </table>
