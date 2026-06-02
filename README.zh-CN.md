@@ -15,15 +15,21 @@
 
 ---
 
+<p align="center">
+  <img src="docs/assets/readme/hero.png" alt="SwingForm AI — 真实练习中的高尔夫挥杆分析" width="860">
+</p>
+
+---
+
 <table>
 <tr>
-<td width="55%" align="center">
-<img src="docs/assets/yifan-golf-0520/skeleton_keyposes.png" alt="高尔夫挥杆骨架关键位">
-<br><sub>⛳ <b>高尔夫</b> · 2 次挥杆自动检测 · 站位 → 顶部 → 击球 → 收杆</sub>
+<td width="50%" align="center">
+<img src="docs/assets/yifan-golf-0520/overlay_poster.jpg" alt="高尔夫骨架叠加 — 第 1 杆击球瞬间">
+<br><sub>⛳ <b>高尔夫 · S1 击球瞬间</b> · TopGolf · 骨架叠加 + 球轨迹</sub>
 </td>
-<td width="45%" align="center">
-<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="篮球骨架叠加视频">
-<br><sub>🏀 <b>篮球</b> · 真实视频骨架叠加 · 第 1 次出手释放帧</sub>
+<td width="50%" align="center">
+<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="篮球骨架叠加 — 第 1 次出手">
+<br><sub>🏀 <b>篮球 · 第 1 次出手</b> · 室内球场 · 骨架叠加</sub>
 </td>
 </tr>
 </table>

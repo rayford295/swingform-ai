@@ -13,17 +13,21 @@
   Turn a phone video into pose landmarks, swing phases, biomechanical metrics, and a skeleton overlay — in one command.
 </p>
 
+<p align="center">
+  <img src="docs/assets/readme/hero.png" alt="SwingForm AI — Golf swing analysis for real practice" width="860">
+</p>
+
 ---
 
 <table>
 <tr>
-<td width="55%" align="center">
-<img src="docs/assets/yifan-golf-0520/skeleton_keyposes.png" alt="Golf swing skeleton keyposes">
-<br><sub>⛳ <b>Golf</b> · 2 swings auto-detected · Address → Top → Impact → Finish</sub>
+<td width="50%" align="center">
+<img src="docs/assets/yifan-golf-0520/overlay_poster.jpg" alt="Golf swing skeleton overlay — S1 Impact">
+<br><sub>⛳ <b>Golf · S1 Impact</b> · TopGolf · skeleton overlay + ball trail</sub>
 </td>
-<td width="45%" align="center">
-<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="Basketball skeleton overlay">
-<br><sub>🏀 <b>Basketball</b> · Skeleton overlay on real video · Shot 1 Release</sub>
+<td width="50%" align="center">
+<img src="docs/assets/yifan-basketball-0601/overlay_poster.jpg" alt="Basketball skeleton overlay — Shot 1 Release">
+<br><sub>🏀 <b>Basketball · Shot 1 Release</b> · indoor court · skeleton overlay</sub>
 </td>
 </tr>
 </table>
