@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SwingForm AI — Open-Source Sports Posture Intelligence</title>
+<link rel="icon" href="assets/brand/swingform-icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -40,10 +41,12 @@ nav{
   border-bottom:1px solid var(--border);
 }
 .nav-brand{
+  display:flex;align-items:center;gap:9px;
   font-family:'Bebas Neue',sans-serif;
   font-size:20px;letter-spacing:3px;color:var(--ink);
   text-decoration:none;
 }
+.nav-logo{width:24px;height:24px;border-radius:6px;display:block;}
 .nav-brand span{color:var(--cyan);}
 .nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a{
@@ -63,7 +66,7 @@ nav{
 
 /* ─── HERO ────────────────────────────────────────── */
 #hero{
-  min-height:100vh;
+  min-height:92vh;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:0;
@@ -80,7 +83,7 @@ nav{
 .hero-left::before{
   content:'';
   position:absolute;inset:0;
-  background:radial-gradient(ellipse at 30% 60%,rgba(0,200,224,0.12) 0%,transparent 70%);
+  background:linear-gradient(135deg,rgba(0,200,224,0.10),transparent 55%);
   pointer-events:none;
 }
 .hero-kicker{
@@ -89,6 +92,12 @@ nav{
   color:var(--cyan);
   text-transform:uppercase;
   margin-bottom:20px;
+}
+.hero-mark{
+  width:56px;height:56px;
+  border-radius:14px;
+  margin-bottom:26px;
+  box-shadow:0 18px 40px rgba(0,0,0,0.24);
 }
 .hero-title{
   font-family:'Bebas Neue',sans-serif;
@@ -129,6 +138,33 @@ nav{
 }
 .btn-ghost:hover{border-color:rgba(255,255,255,0.5);color:#fff;}
 
+.status-band{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(255,255,255,0.08);
+  margin-top:48px;
+  max-width:560px;
+}
+.status-item{
+  padding:18px 18px 0 0;
+  min-width:0;
+}
+.status-value{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px;
+  letter-spacing:1px;
+  color:#fff;
+  line-height:1;
+}
+.status-label{
+  margin-top:6px;
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:1.5px;
+  color:rgba(255,255,255,0.38);
+  text-transform:uppercase;
+}
+
 .hero-right{
   position:relative;
   background:#070810;
@@ -154,6 +190,7 @@ nav{
 
 /* ─── SECTION BASE ────────────────────────────────── */
 section{padding:96px 80px;}
+#hero{padding:56px 0 0;}
 .section-label{
   font-family:'DM Mono',monospace;
   font-size:10px;letter-spacing:3px;
@@ -178,7 +215,7 @@ section{padding:96px 80px;}
   gap:32px;align-items:start;
 }
 .demo-card{
-  border:1px solid var(--border);border-radius:12px;
+  border:1px solid var(--border);border-radius:8px;
   overflow:hidden;background:var(--ink);
 }
 .demo-card-label{
@@ -204,7 +241,7 @@ section{padding:96px 80px;}
 .metrics-strip{
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:1px;background:var(--border);
-  border:1px solid var(--border);border-radius:10px;
+  border:1px solid var(--border);border-radius:8px;
   overflow:hidden;margin-top:32px;
 }
 .metric-cell{
@@ -258,7 +295,7 @@ section{padding:96px 80px;}
 }
 .ex-card{
   background:#fff;border:1px solid var(--border);
-  border-radius:10px;overflow:hidden;
+  border-radius:8px;overflow:hidden;
   transition:box-shadow 0.2s,transform 0.2s;
 }
 .ex-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.08);transform:translateY(-2px);}
@@ -318,7 +355,11 @@ footer{
   #hero{grid-template-columns:1fr;grid-template-rows:auto 60vh;}
   .hero-left{padding:60px 32px;}
   section{padding:64px 32px;}
-  .demo-grid,.pipeline-steps,.examples-grid,.metrics-strip{grid-template-columns:1fr;}
+  .demo-grid,.pipeline-steps,.examples-grid,.metrics-strip,.status-band{grid-template-columns:1fr;}
+  .pipeline-steps::before{display:none;}
+  .step{padding:0 0 28px;text-align:left;}
+  .step-num{margin:0 0 14px;}
+  .status-band{max-width:none;}
   nav{padding:0 20px;}
   .nav-links{display:none;}
   footer{flex-direction:column;gap:20px;text-align:center;}
@@ -329,7 +370,10 @@ footer{
 
 <!-- ── NAV ─────────────────────────────────────────────── -->
 <nav>
-  <a href="#" class="nav-brand">SWING<span>FORM</span> AI</a>
+  <a href="#" class="nav-brand">
+    <img src="assets/brand/swingform-icon.svg" alt="" class="nav-logo">
+    SWING<span>FORM</span> AI
+  </a>
   <ul class="nav-links">
     <li><a href="#demo">Demo</a></li>
     <li><a href="#pipeline">Pipeline</a></li>
@@ -345,6 +389,7 @@ footer{
 <!-- ── HERO ─────────────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-left">
+    <img src="assets/brand/swingform-icon.svg" alt="SwingForm AI icon" class="hero-mark">
     <div class="hero-kicker">Open-Source · Sports AI · Biomechanics</div>
     <h1 class="hero-title">
       SWING<br>
@@ -366,6 +411,24 @@ footer{
       </a>
       <a href="#demo" class="btn-ghost">See Demo ↓</a>
     </div>
+    <div class="status-band" aria-label="Project status">
+      <div class="status-item">
+        <div class="status-value">2</div>
+        <div class="status-label">Open sessions</div>
+      </div>
+      <div class="status-item">
+        <div class="status-value">577</div>
+        <div class="status-label">Pose frames</div>
+      </div>
+      <div class="status-item">
+        <div class="status-value">3D</div>
+        <div class="status-label">Viewer ready</div>
+      </div>
+      <div class="status-item">
+        <div class="status-value">MIT</div>
+        <div class="status-label">Open source</div>
+      </div>
+    </div>
   </div>
   <div class="hero-right">
     <span class="hero-canvas-label">3D POSE · MEDIAPIPE WORLD LANDMARKS</span>
@@ -379,7 +442,7 @@ footer{
   <div class="section-label">Live Results</div>
   <h2 class="section-title">From Phone Video to Full Analysis</h2>
   <p class="section-sub">
-    One command runs the full pipeline — pose extraction, swing detection, ball tracking, and metric export.
+    One command turns a phone clip into pose overlays, swing phases, ball-trail review aids, and metric exports.
   </p>
 
   <div class="demo-grid">
@@ -387,9 +450,10 @@ footer{
       <div class="demo-card-label"><span>●</span> Skeleton + Ball Trail · Yifan Golf 05.20</div>
       <video
         src="https://raw.githubusercontent.com/rayford295/swingform-ai/main/examples/yifan-golf-0520/golf_effects.mp4"
+        poster="assets/yifan-golf-0520/effects_poster.jpg"
         autoplay muted loop playsinline style="max-height:520px;object-fit:cover;"></video>
       <div class="demo-caption">
-        Depth-aware skeleton (cyan=spine · gold=arms · green=legs) + ball detection via Farneback optical flow + RANSAC parabolic fit
+        Depth-aware skeleton coloring with a tee-anchored ball-trail aid. Detector confidence gates keep noisy highlights from looking like measured flight.
       </div>
     </div>
     <div>
@@ -421,7 +485,7 @@ footer{
     </div>
     <div class="metric-cell">
       <div class="metric-val">0</div>
-      <div class="metric-lbl">External dependencies for core</div>
+      <div class="metric-lbl">Heavy dependencies in core package</div>
     </div>
   </div>
 </section>
@@ -456,7 +520,7 @@ footer{
     <div class="step">
       <div class="step-num">5</div>
       <div class="step-name">Output</div>
-      <div class="step-desc">CSV · JSON · skeleton video · 3D viewer · Markdown report</div>
+      <div class="step-desc">CSV · JSON · effects video · 3D viewer · Markdown report</div>
     </div>
   </div>
 </section>
