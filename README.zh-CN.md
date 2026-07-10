@@ -83,7 +83,6 @@ python -m unittest discover -s tests
 | [yifan-basketball-0710](examples/yifan-basketball-0710/) | 🏀 篮球 · 1v1 | 57 s · 480×854 | 1616 / 1712 | 1 次出手 |
 | [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ 高尔夫 | 27 s · 720×1280 | 809 / 809 | 3 次挥杆 |
 | [yifan-golf-0520](examples/yifan-golf-0520/) | ⛳ 高尔夫 | 7.2 s · 320×568 | 216 / 216 | 2 次挥杆 |
-| [yifan-basketball-0601](examples/yifan-basketball-0601/) | 🏀 篮球 | 8.1 s · 720×1280 | 244 / 244 | 1 次出手 |
 | [golf-swing-demo](examples/golf-swing-demo/) | ⛳ 高尔夫 | 14.4 s · 320×568 | 361 / 361 | 2 次挥杆 |
 
 每个会话包含：原始视频 · 姿态 JSON · 指标 CSV · 可视化图表 · Markdown 报告。

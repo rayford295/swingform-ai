@@ -81,7 +81,6 @@ Ball tracking uses optical flow + body-exclusion mask + RANSAC parabolic fit. It
 | [yifan-basketball-0710](examples/yifan-basketball-0710/) | 🏀 Basketball · 1v1 | 57 s · 480×854 | 1616 / 1712 | 1 release |
 | [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ Golf | 27 s · 720×1280 | 809 / 809 | 3 swings |
 | [yifan-golf-0520](examples/yifan-golf-0520/) | ⛳ Golf | 7.2 s · 320×568 | 216 / 216 | 2 swings |
-| [yifan-basketball-0601](examples/yifan-basketball-0601/) | 🏀 Basketball | 8.1 s · 720×1280 | 244 / 244 | 1 release |
 | [golf-swing-demo](examples/golf-swing-demo/) | ⛳ Golf | 14.4 s · 320×568 | 361 / 361 | 2 swings |
 
 Each session includes source video · pose JSON · metrics CSV · visual charts · Markdown report.
