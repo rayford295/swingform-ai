@@ -303,6 +303,12 @@ def detect_shot_events(rows: list[dict[str, Any]], fps: float) -> list[dict[str,
             continue
         if scores[idx] < release_threshold:
             continue
+        # Plausibility gate: an upright athlete has shoulders above hips above ankles
+        # with non-trivial extent; phantom edge detections and occluded blends fail this.
+        torso_height = rows[idx]["hip_mid_y"] - (1.0 - rows[idx]["shoulder_mid_height_norm"])
+        leg_height = rows[idx]["ankle_mid_y"] - rows[idx]["hip_mid_y"]
+        if torso_height < 0.04 or leg_height < 0.04 or rows[idx]["mean_visibility"] < 0.72:
+            continue
         if scores[idx] >= max(scores[idx - 2 : idx + 3]):
             if release_indices and idx - release_indices[-1] < min_gap:
                 if scores[idx] > scores[release_indices[-1]]:
@@ -716,10 +722,11 @@ def build_public_summary(
     rows: list[dict[str, Any]],
     events: list[dict[str, Any]],
     review_frames: list[dict[str, Any]],
+    example_dir: Path,
 ) -> dict[str, Any]:
     return {
         "schema_version": "basketball-session-v1",
-        "source": "examples/yifan-basketball-0601/basketball.mp4",
+        "source": (example_dir / "basketball.mp4").as_posix(),
         "release_note": "This open example includes a cleared source clip plus derived pose and metric files.",
         "video": {
             "duration_s": video_info.duration_s,
@@ -752,14 +759,17 @@ def write_summary_markdown(
     summary: dict[str, Any],
     output_path: Path,
     asset_prefix: str,
+    title: str,
+    example_dir: Path,
 ) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     video = summary["video"]
     pose = summary["pose"]
     motion = summary["motion_summary"]
     events = summary["shot_events"]
+    example = example_dir.as_posix()
     lines = [
-        "# Yifan Basketball 06.01",
+        f"# {title}",
         "",
         "This demo adds basketball to the same personal motion-record format used for the golf examples.",
         "It is useful as a body-motion and release-proxy baseline, not yet as a ball-flight or make/miss analysis.",
@@ -774,11 +784,11 @@ def write_summary_markdown(
         "",
         "| File | Use |",
         "| --- | --- |",
-        "| `examples/yifan-basketball-0601/basketball.mp4` | Source basketball court clip |",
-        "| `examples/yifan-basketball-0601/basketball_overlay.mp4` | Skeleton overlay review video |",
-        "| `examples/yifan-basketball-0601/pose_sequence.json` | MediaPipe pose landmarks for tracked frames |",
-        "| `examples/yifan-basketball-0601/metrics.csv` | Per-frame basketball motion metrics |",
-        "| `examples/yifan-basketball-0601/summary.json` | Demo summary for reports |",
+        f"| `{example}/basketball.mp4` | Source basketball court clip |",
+        f"| `{example}/basketball_overlay.mp4` | Skeleton overlay review video |",
+        f"| `{example}/pose_sequence.json` | MediaPipe pose landmarks for tracked frames |",
+        f"| `{example}/metrics.csv` | Per-frame basketball motion metrics |",
+        f"| `{example}/summary.json` | Demo summary for reports |",
         "",
         "## Video and Detection",
         "",
@@ -838,9 +848,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--session-id", required=True)
     parser.add_argument("--shooting-side", choices=["right", "left"], default="right")
     parser.add_argument("--model", type=Path, default=Path("models/local/pose_landmarker_lite.task"))
-    parser.add_argument("--example-output", type=Path, default=Path("examples/yifan-basketball-0601"))
-    parser.add_argument("--asset-output", type=Path, default=Path("docs/assets/yifan-basketball-0601"))
-    parser.add_argument("--example-doc", type=Path, default=Path("docs/examples/yifan-basketball-0601.md"))
+    parser.add_argument("--example-output", type=Path, default=None, help="Defaults to examples/<session-id>.")
+    parser.add_argument("--asset-output", type=Path, default=None, help="Defaults to docs/assets/<session-id>.")
+    parser.add_argument("--example-doc", type=Path, default=None, help="Defaults to docs/examples/<session-id>.md.")
+    parser.add_argument("--title", default=None, help="Report title. Defaults to a readable form of the session id.")
     parser.add_argument("--copy-video", action="store_true", help="Copy the source clip into the example folder.")
     parser.add_argument("--render-overlay", action="store_true", help="Render a skeleton overlay review video.")
     return parser
@@ -848,12 +859,19 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> None:
     args = build_parser().parse_args(argv)
+    if args.example_output is None:
+        args.example_output = Path("examples") / args.session_id
+    if args.asset_output is None:
+        args.asset_output = Path("docs/assets") / args.session_id
+    if args.example_doc is None:
+        args.example_doc = Path("docs/examples") / f"{args.session_id}.md"
+    title = args.title or args.session_id.replace("-", " ").title()
     model_path = ensure_model(args.model)
     sequence, video_info = extract_pose_sequence(args.video, model_path)
     rows = build_metric_rows(sequence, args.shooting_side)
     events = detect_shot_events(rows, video_info.fps)
     review_frames = select_review_frames(rows)
-    summary = build_public_summary(video_info, sequence, rows, events, review_frames)
+    summary = build_public_summary(video_info, sequence, rows, events, review_frames, args.example_output)
 
     args.example_output.mkdir(parents=True, exist_ok=True)
     if args.copy_video:
@@ -877,7 +895,13 @@ def main(argv: list[str] | None = None) -> None:
     write_contact_sheet(args.video, args.asset_output / "contact_sheet.jpg")
     plot_timeline(rows, events, args.asset_output / "metric_timeline.png")
     plot_keyposes(sequence, events, review_frames, args.asset_output / "skeleton_keyposes.png")
-    write_summary_markdown(summary, args.example_doc, "../assets/yifan-basketball-0601")
+    write_summary_markdown(
+        summary,
+        args.example_doc,
+        f"../assets/{args.asset_output.name}",
+        title=title,
+        example_dir=args.example_output,
+    )
     print(
         json.dumps(
             {

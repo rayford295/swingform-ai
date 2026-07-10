@@ -30,9 +30,9 @@
 </td>
 <td width="50%">
 
-![Basketball skeleton overlay](docs/assets/yifan-basketball-0601/demo.gif)
+![Basketball skeleton overlay](docs/assets/yifan-basketball-0710/demo.gif)
 
-<p align="center"><sub>🏀 <b>Basketball · Indoor court</b> · skeleton overlay · release detected · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/basketball_overlay.mp4">full video ↗</a></sub></p>
+<p align="center"><sub>🏀 <b>Basketball · 1v1 gameplay</b> · skeleton overlay · release detected under contest · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0710/basketball_overlay.mp4">full video ↗</a> · <a href="https://www.youtube.com/shorts/9nPEMg---YA">YouTube Short ↗</a></sub></p>
 
 </td>
 </tr>
@@ -78,6 +78,7 @@ Ball tracking uses optical flow + body-exclusion mask + RANSAC parabolic fit. It
 
 | Session | Sport | Clip | Frames | Events |
 |---|---|---|---|---|
+| [yifan-basketball-0710](examples/yifan-basketball-0710/) | 🏀 Basketball · 1v1 | 57 s · 480×854 | 1616 / 1712 | 1 release |
 | [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ Golf | 27 s · 720×1280 | 809 / 809 | 3 swings |
 | [yifan-golf-0520](examples/yifan-golf-0520/) | ⛳ Golf | 7.2 s · 320×568 | 216 / 216 | 2 swings |
 | [yifan-basketball-0601](examples/yifan-basketball-0601/) | 🏀 Basketball | 8.1 s · 720×1280 | 244 / 244 | 1 release |

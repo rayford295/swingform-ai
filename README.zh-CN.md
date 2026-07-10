@@ -32,9 +32,9 @@
 </td>
 <td width="50%">
 
-![篮球骨架叠加](docs/assets/yifan-basketball-0601/demo.gif)
+![篮球骨架叠加](docs/assets/yifan-basketball-0710/demo.gif)
 
-<p align="center"><sub>🏀 <b>篮球 · 室内球场</b> · 骨架叠加 · 出手检测 · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0601/basketball_overlay.mp4">完整视频 ↗</a></sub></p>
+<p align="center"><sub>🏀 <b>篮球 · 1v1 实战</b> · 骨架叠加 · 对抗中出手检测 · <a href="https://github.com/rayford295/swingform-ai/blob/main/examples/yifan-basketball-0710/basketball_overlay.mp4">完整视频 ↗</a> · <a href="https://www.youtube.com/shorts/9nPEMg---YA">YouTube Short ↗</a></sub></p>
 
 </td>
 </tr>
@@ -80,6 +80,7 @@ python -m unittest discover -s tests
 
 | 会话 | 运动 | 视频 | 帧数 | 事件 |
 |---|---|---|---|---|
+| [yifan-basketball-0710](examples/yifan-basketball-0710/) | 🏀 篮球 · 1v1 | 57 s · 480×854 | 1616 / 1712 | 1 次出手 |
 | [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ 高尔夫 | 27 s · 720×1280 | 809 / 809 | 3 次挥杆 |
 | [yifan-golf-0520](examples/yifan-golf-0520/) | ⛳ 高尔夫 | 7.2 s · 320×568 | 216 / 216 | 2 次挥杆 |
 | [yifan-basketball-0601](examples/yifan-basketball-0601/) | 🏀 篮球 | 8.1 s · 720×1280 | 244 / 244 | 1 次出手 |
