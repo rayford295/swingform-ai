@@ -1,7 +1,7 @@
 # Yifan Basketball 07.10
 
 This session is the first contested-gameplay example: a 57-second 1v1 clip ("vs Dreamway", indoor court), also published as a [YouTube Short](https://www.youtube.com/shorts/9nPEMg---YA).
-Unlike the earlier solo-practice clip, this footage has two athletes, occlusion, and stretches where the primary athlete leaves the frame — which is exactly what made it a useful stress test.
+Unlike solo-practice clips, this footage has two athletes, occlusion, and stretches where the primary athlete leaves the frame — which is exactly what made it a useful stress test.
 
 ![Demo](../assets/yifan-basketball-0710/demo.gif)
 
@@ -26,26 +26,29 @@ Unlike the earlier solo-practice clip, this footage has two athletes, occlusion,
 - Duration: 57.07s
 - Resolution: 480x854
 - FPS: 30.00
-- Pose coverage: 1616 of 1712 frames (94.4%)
-- Mean landmark visibility: 0.857
-- Reliable shot-form events isolated: 1
+- Pose coverage: 1621 of 1712 frames (94.7%)
+- Mean landmark visibility: 0.860
+- Reliable shot-form events isolated: 2
 
 ## Main Read
 
-- Contested 1v1 footage is much harder than solo practice: without filtering, the detector reported 4 "release" events, of which only 1 was a real shot. The other 3 were a dribble mislabel and two phantom poses detected at the frame edge after the athlete left the frame.
-- This session motivated a new plausibility gate in `detect_shot_events`: a release candidate must come from an upright, full-height pose (shoulders above hips above ankles with non-trivial extent) with sufficient landmark visibility. With the gate, exactly the one real shot at 35.70s survives.
-- Pose coverage stays high (94.4%) even in gameplay, but coverage is not reliability — the tracker happily follows the wrong athlete or a phantom, so event-level gating matters more than frame-level coverage.
+- This session drove two robustness upgrades that now apply to every basketball video:
+  a **primary-athlete tracker** (`swingform_ai.tracking`) that detects up to two poses per frame and follows the one continuing the main track, and a **plausibility gate** in event detection that rejects release candidates from collapsed or phantom poses.
+- The impact was concrete: single-pose tracking produced 4 claimed releases of which only 1 was real; with the tracker plus gate, the pipeline reports exactly the 2 real shots — including one at 18.00s that single-pose tracking had missed entirely because it was following the defender.
+- Summary metrics are now computed only from plausible frames inside detected shot windows, so whole-clip transition noise no longer contaminates them.
 - The release label is pose-based: it comes from visible wrist height, wrist speed, and arm extension, not from ball contact.
-- The next technical step is still ball/rim association, plus player re-identification so metrics attach to one athlete across possessions.
+- The next technical step is rim association for make/miss context, plus appearance-based re-identification so the track survives long occlusions.
 
 ## Basketball Metrics
 
+Computed over plausible frames within detected shot windows.
+
 | Metric | Value |
 | --- | ---: |
-| Mean shooting elbow angle | 91.5 deg |
-| Max shooting wrist height proxy | 0.967 |
-| Min shooting knee angle | 11.7 deg |
-| Mean body speed proxy | 0.275 |
+| Mean shooting elbow angle | 115.5 deg |
+| Max shooting wrist height proxy | 0.620 |
+| Min shooting knee angle | 22.5 deg |
+| Mean body speed proxy | 0.652 |
 
 ## Interpretation
 
@@ -56,4 +59,5 @@ Golf can keep its address/top/impact/finish loop, while basketball gets set/dip/
 
 | Shot | Set | Dip | Lift | Release proxy | Follow-through | Landing |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 34.63s | 34.90s | 35.33s | 35.70s | 36.10s | 36.67s |
+| 1 | 17.03s | 17.50s | 17.93s | 18.00s | 18.40s | 18.97s |
+| 2 | 34.70s | 35.13s | 35.77s | 35.93s | 35.97s | 36.83s |

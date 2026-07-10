@@ -58,6 +58,12 @@ python scripts/golf_render.py your_video.mp4 --output effects.mp4
 python scripts/analyze_local_golf_video.py your_video.mp4 --session-id s1 --handedness right
 python scripts/analyze_local_basketball_video.py your_video.mp4 --session-id s1 --shooting-side right
 
+# Compare two analyzed sessions of the same sport
+python scripts/compare_sessions.py examples/yifan-golf-0520 examples/yifan-golf-0601
+
+# Regenerate the README example tables from committed summaries
+python scripts/generate_examples_table.py
+
 # Tests
 python -m unittest discover -s tests
 ```
@@ -76,14 +82,17 @@ Ball tracking uses optical flow + body-exclusion mask + RANSAC parabolic fit. It
 
 ## Open Examples
 
+<!-- examples-table:start -->
 | Session | Sport | Clip | Frames | Events |
 |---|---|---|---|---|
-| [yifan-basketball-0710](examples/yifan-basketball-0710/) | 🏀 Basketball · 1v1 | 57 s · 480×854 | 1616 / 1712 | 1 release |
-| [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ Golf | 27 s · 720×1280 | 809 / 809 | 3 swings |
+| [yifan-basketball-0710](examples/yifan-basketball-0710/) | 🏀 Basketball · 1v1 | 57.1 s · 480×854 | 1621 / 1712 | 2 releases |
+| [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ Golf | 27.0 s · 720×1280 | 802 / 809 | 3 swings |
 | [yifan-golf-0520](examples/yifan-golf-0520/) | ⛳ Golf | 7.2 s · 320×568 | 216 / 216 | 2 swings |
 | [golf-swing-demo](examples/golf-swing-demo/) | ⛳ Golf | 14.4 s · 320×568 | 361 / 361 | 2 swings |
+<!-- examples-table:end -->
 
 Each session includes source video · pose JSON · metrics CSV · visual charts · Markdown report.
+Cross-session comparison: [yifan-golf-0520 vs yifan-golf-0601](docs/examples/compare-yifan-golf-0520-vs-yifan-golf-0601.md) — generate your own with `python scripts/compare_sessions.py examples/<a> examples/<b>`.
 
 ## Project Layout
 

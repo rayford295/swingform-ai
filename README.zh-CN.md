@@ -60,6 +60,12 @@ python scripts/golf_render.py your_video.mp4 --output effects.mp4
 python scripts/analyze_local_golf_video.py your_video.mp4 --session-id s1 --handedness right
 python scripts/analyze_local_basketball_video.py your_video.mp4 --session-id s1 --shooting-side right
 
+# 对比同一运动的两个已分析会话
+python scripts/compare_sessions.py examples/yifan-golf-0520 examples/yifan-golf-0601
+
+# 从已提交的 summary 重新生成 README 示例表格
+python scripts/generate_examples_table.py
+
 # 运行测试
 python -m unittest discover -s tests
 ```
@@ -78,14 +84,17 @@ python -m unittest discover -s tests
 
 ## 开源示例
 
+<!-- examples-table:start -->
 | 会话 | 运动 | 视频 | 帧数 | 事件 |
 |---|---|---|---|---|
-| [yifan-basketball-0710](examples/yifan-basketball-0710/) | 🏀 篮球 · 1v1 | 57 s · 480×854 | 1616 / 1712 | 1 次出手 |
-| [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ 高尔夫 | 27 s · 720×1280 | 809 / 809 | 3 次挥杆 |
+| [yifan-basketball-0710](examples/yifan-basketball-0710/) | 🏀 篮球 · 1v1 | 57.1 s · 480×854 | 1621 / 1712 | 2 次出手 |
+| [yifan-golf-0601](examples/yifan-golf-0601/) | ⛳ 高尔夫 | 27.0 s · 720×1280 | 802 / 809 | 3 次挥杆 |
 | [yifan-golf-0520](examples/yifan-golf-0520/) | ⛳ 高尔夫 | 7.2 s · 320×568 | 216 / 216 | 2 次挥杆 |
 | [golf-swing-demo](examples/golf-swing-demo/) | ⛳ 高尔夫 | 14.4 s · 320×568 | 361 / 361 | 2 次挥杆 |
+<!-- examples-table:end -->
 
 每个会话包含：原始视频 · 姿态 JSON · 指标 CSV · 可视化图表 · Markdown 报告。
+跨会话对比示例：[yifan-golf-0520 vs yifan-golf-0601](docs/examples/compare-yifan-golf-0520-vs-yifan-golf-0601.md)，可用 `python scripts/compare_sessions.py examples/<a> examples/<b>` 生成自己的对比报告。
 
 ## 目录结构
 

@@ -27,6 +27,8 @@ from mediapipe.tasks.python import vision
 from swingform_ai.geometry import distance
 from swingform_ai.profiles import basketball
 from swingform_ai.schema import FramePose, Landmark, PoseSequence
+from swingform_ai.tracking import PrimaryAthleteTracker
+from swingform_ai.video import reencode_h264
 
 MODEL_URL = (
     "https://storage.googleapis.com/mediapipe-models/pose_landmarker/"
@@ -148,12 +150,13 @@ def extract_pose_sequence(video_path: Path, model_path: Path) -> tuple[PoseSeque
     options = vision.PoseLandmarkerOptions(
         base_options=base_options,
         running_mode=vision.RunningMode.VIDEO,
-        num_poses=1,
+        num_poses=2,
         min_pose_detection_confidence=0.25,
         min_pose_presence_confidence=0.25,
         min_tracking_confidence=0.25,
     )
     frames: list[FramePose] = []
+    tracker = PrimaryAthleteTracker()
     with vision.PoseLandmarker.create_from_options(options) as landmarker:
         frame_index = 0
         while True:
@@ -164,14 +167,14 @@ def extract_pose_sequence(video_path: Path, model_path: Path) -> tuple[PoseSeque
             mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
             timestamp_ms = int(round((frame_index / video_info.fps) * 1000))
             result = landmarker.detect_for_video(mp_image, timestamp_ms)
-            if result.pose_landmarks:
-                frames.append(
-                    framepose_from_result(
-                        result.pose_landmarks[0],
-                        frame_index=frame_index,
-                        time_s=frame_index / video_info.fps,
-                    )
-                )
+            time_s = frame_index / video_info.fps
+            candidates = [
+                framepose_from_result(landmarks, frame_index=frame_index, time_s=time_s)
+                for landmarks in result.pose_landmarks
+            ]
+            chosen = tracker.select(candidates, time_s)
+            if chosen is not None:
+                frames.append(chosen)
             frame_index += 1
     cap.release()
     return PoseSequence(frames=frames, source=str(video_path), fps=video_info.fps), video_info
@@ -386,19 +389,23 @@ def select_review_frames(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def write_pose_json(sequence: PoseSequence, output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    # 4 decimals in normalized coordinates is sub-pixel at any practical
+    # resolution and roughly halves the committed file size.
     payload = {
         "source": sequence.source,
         "fps": sequence.fps,
         "frames": [
             {
                 "frame_index": frame.frame_index,
-                "time_s": frame.time_s,
+                "time_s": round(frame.time_s, 4),
                 "landmarks": {
                     name: {
-                        "x": landmark.x,
-                        "y": landmark.y,
-                        "z": landmark.z,
-                        "visibility": landmark.visibility,
+                        "x": round(landmark.x, 4),
+                        "y": round(landmark.y, 4),
+                        "z": round(landmark.z, 4),
+                        "visibility": round(landmark.visibility, 3)
+                        if landmark.visibility is not None
+                        else None,
                     }
                     for name, landmark in frame.landmarks.items()
                 },
@@ -704,6 +711,34 @@ def render_overlay_video(
     writer.release()
 
 
+def plausible_row(row: dict[str, Any]) -> bool:
+    torso_height = row["hip_mid_y"] - (1.0 - row["shoulder_mid_height_norm"])
+    leg_height = row["ankle_mid_y"] - row["hip_mid_y"]
+    return torso_height > 0.02 and leg_height > 0.02 and row["mean_visibility"] >= 0.6
+
+
+def metric_rows_for_summary(
+    rows: list[dict[str, Any]],
+    events: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Rows that feed the motion summary.
+
+    Whole-clip aggregates are dominated by transition frames and tracking
+    noise; when shot events exist, summarize only plausible frames inside
+    the detected set-to-landing windows.
+    """
+
+    gated = [row for row in rows if plausible_row(row)]
+    if not events:
+        return gated or rows
+    windowed = [
+        row
+        for row in gated
+        if any(event["set_time_s"] <= row["time_s"] <= event["landing_time_s"] for event in events)
+    ]
+    return windowed or gated or rows
+
+
 def summarize_motion(rows: list[dict[str, Any]]) -> dict[str, float]:
     if not rows:
         return {}
@@ -740,12 +775,15 @@ def build_public_summary(
             "detected_frames": len(sequence.frames),
             "total_frames": video_info.frame_count,
             "coverage_pct": 100.0 * len(sequence.frames) / video_info.frame_count,
-            "mean_visibility": summarize_motion(rows).get("mean_visibility", 0.0),
+            "mean_visibility": mean(row["mean_visibility"] for row in rows) if rows else 0.0,
         },
         "sport": "basketball",
         "shot_events": events,
         "review_frames": review_frames,
-        "motion_summary": summarize_motion(rows),
+        "motion_summary": summarize_motion(metric_rows_for_summary(rows, events)),
+        "motion_summary_scope": "plausible frames within detected shot windows"
+        if events
+        else "plausible frames across the clip",
         "limitations": [
             "Single-camera 2D/pseudo-3D body pose only.",
             "The detector tracks the primary visible athlete and uses body pose only.",
@@ -809,6 +847,8 @@ def write_summary_markdown(
         "- The next technical step is ball/rim association before making make/miss, shot-arc, or release-angle claims.",
         "",
         "## Basketball Metrics",
+        "",
+        f"Computed over {summary.get('motion_summary_scope', 'all tracked frames')}.",
         "",
         "| Metric | Value |",
         "| --- | ---: |",
@@ -879,14 +919,17 @@ def main(argv: list[str] | None = None) -> None:
         if args.video.resolve() != target_video.resolve():
             shutil.copy2(args.video, target_video)
     if args.render_overlay:
+        overlay_path = args.example_output / "basketball_overlay.mp4"
         render_overlay_video(
             args.video,
             sequence,
             video_info,
             events,
             review_frames,
-            args.example_output / "basketball_overlay.mp4",
+            overlay_path,
         )
+        if not reencode_h264(overlay_path):
+            print("warning: H.264 re-encode unavailable, overlay left as mp4v")
     write_pose_json(sequence, args.example_output / "pose_sequence.json")
     write_metrics_csv(rows, args.example_output / "metrics.csv")
     (args.example_output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")

@@ -11,29 +11,46 @@
   },
   "pose": {
     "backend": "MediaPipe Pose Landmarker Lite",
-    "detected_frames": 1616,
+    "detected_frames": 1621,
     "total_frames": 1712,
-    "coverage_pct": 94.39252336448598,
-    "mean_visibility": 0.8573918102655315
+    "coverage_pct": 94.68457943925233,
+    "mean_visibility": 0.8604418039777175
   },
   "sport": "basketball",
   "shot_events": [
     {
       "shot": 1,
-      "score": 1.0708612876683548,
+      "score": 1.0024212589558756,
       "reliable": true,
-      "set_frame": 1039,
-      "set_time_s": 34.63333333333333,
-      "dip_frame": 1047,
-      "dip_time_s": 34.9,
-      "lift_frame": 1060,
-      "lift_time_s": 35.333333333333336,
-      "release_frame": 1071,
-      "release_time_s": 35.7,
-      "follow_through_frame": 1083,
-      "follow_through_time_s": 36.1,
-      "landing_frame": 1100,
-      "landing_time_s": 36.666666666666664
+      "set_frame": 511,
+      "set_time_s": 17.033333333333335,
+      "dip_frame": 525,
+      "dip_time_s": 17.5,
+      "lift_frame": 538,
+      "lift_time_s": 17.933333333333334,
+      "release_frame": 540,
+      "release_time_s": 18.0,
+      "follow_through_frame": 552,
+      "follow_through_time_s": 18.4,
+      "landing_frame": 569,
+      "landing_time_s": 18.966666666666665
+    },
+    {
+      "shot": 2,
+      "score": 1.1011080795901151,
+      "reliable": true,
+      "set_frame": 1041,
+      "set_time_s": 34.7,
+      "dip_frame": 1054,
+      "dip_time_s": 35.13333333333333,
+      "lift_frame": 1073,
+      "lift_time_s": 35.766666666666666,
+      "release_frame": 1078,
+      "release_time_s": 35.93333333333333,
+      "follow_through_frame": 1079,
+      "follow_through_time_s": 35.96666666666667,
+      "landing_frame": 1105,
+      "landing_time_s": 36.833333333333336
     }
   ],
   "review_frames": [
@@ -69,12 +86,13 @@
     }
   ],
   "motion_summary": {
-    "mean_visibility": 0.8573918102655315,
-    "mean_shooting_elbow_angle_deg": 91.53183741412948,
-    "max_shooting_wrist_height_norm": 0.9672473333775997,
-    "min_shooting_knee_angle_deg": 11.716870697016722,
-    "mean_body_speed_norm_per_s": 0.2750364402066076
+    "mean_visibility": 0.8525814382281894,
+    "mean_shooting_elbow_angle_deg": 115.50987458053355,
+    "max_shooting_wrist_height_norm": 0.619994580745697,
+    "min_shooting_knee_angle_deg": 22.485927692725205,
+    "mean_body_speed_norm_per_s": 0.6520245789344324
   },
+  "motion_summary_scope": "plausible frames within detected shot windows",
   "limitations": [
     "Single-camera 2D/pseudo-3D body pose only.",
     "The detector tracks the primary visible athlete and uses body pose only.",
